@@ -14,7 +14,7 @@ const technologies = [
     icon: Zap,
     title: '高功率电能变换技术',
     subtitle: 'High Power Conversion',
-    description: '采用先进的电力电子技术，实现高效率、高功率密度的电能变换，支持500W至15kW宽功率范围输出。',
+    description: '采用先进的电力电子技术，实现高效率、高功率密度的电能变换，支持500W至10kW宽功率范围输出。',
     features: [
       '软开关技术降低开关损耗，提升转换效率至95%+',
       '多电平拓扑结构，输出波形质量高',
@@ -23,7 +23,7 @@ const technologies = [
     ],
     specs: [
       { label: '转换效率', value: '≥95%' },
-      { label: '功率范围', value: '500W-15kW' },
+      { label: '功率范围', value: '500W-10kW' },
       { label: '输出电压', value: 'DC 24V-800V' },
       { label: '工作频率', value: '20kHz-100kHz' },
     ],
@@ -40,8 +40,8 @@ const technologies = [
       '异物检测功能，保障充电安全',
     ],
     specs: [
-      { label: '充电距离', value: '50-300mm' },
-      { label: '水平偏移', value: '±150mm' },
+      { label: '充电距离', value: '30-200mm' },
+      { label: '水平偏移', value: '±50-100mm' },
       { label: '传输效率', value: '≥90%' },
       { label: '对准容错', value: '±30°' },
     ],
@@ -67,12 +67,12 @@ const technologies = [
 ];
 
 const patents = [
-  { name: '一种水下无线电能传输系统', type: '发明专利', status: '已授权' },
-  { name: '一种抗偏移无线充电线圈结构', type: '发明专利', status: '已授权' },
-  { name: '一种高功率密度电能变换器', type: '发明专利', status: '已授权' },
-  { name: '一种自适应阻抗匹配电路', type: '发明专利', status: '已授权' },
-  { name: '一种多设备协同充电控制方法', type: '发明专利', status: '已授权' },
-  { name: '一种无线充电异物检测装置', type: '实用新型', status: '已授权' },
+  { name: '一种无线电能传输系统', type: '发明专利', status: '已授权' },
+  { name: '海下无线供电系统控制电路设计方法、装置、介质及设备', type: '发明专利', status: '已授权' },
+  { name: '用于磁耦合式无线电能传输系统的组合控制方法', type: '发明专利', status: '已授权' },
+  { name: '基于单载波能量调制的无线电能和信息共享通道传输方法', type: '发明专利', status: '已授权' },
+  { name: '基于无线通信的水下航行器电池状态监测系统及供电系统', type: '发明专利', status: '已授权' },
+  { name: '基于深度学习的海下无线电能传输系统及动态控制方法', type: '发明专利', status: '已授权' },
 ];
 
 const awards = [

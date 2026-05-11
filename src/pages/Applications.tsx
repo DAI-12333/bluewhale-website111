@@ -6,6 +6,7 @@ import {
   Truck, Ship, Factory
 } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import { applicationImages } from '../config/images';
 
 interface CaseStudy {
   id: string;
@@ -158,11 +159,13 @@ export default function Applications() {
                   className="glass-card overflow-hidden hover-lift cursor-pointer group"
                   onClick={() => setSelectedCase(caseItem)}
                 >
-                  <div className="aspect-video bg-gradient-to-br from-dark-700 to-dark-600 flex items-center justify-center relative">
+                  <div className="aspect-video relative overflow-hidden">
+                    <img 
+                      src={applicationImages[caseItem.id]} 
+                      alt={caseItem.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark-800/80 to-transparent" />
-                    {caseItem.field === 'transport' && <Truck className="w-16 h-16 text-ocean-500/30 group-hover:scale-110 transition-transform duration-500" />}
-                    {caseItem.field === 'ocean' && <Ship className="w-16 h-16 text-ocean-500/30 group-hover:scale-110 transition-transform duration-500" />}
-                    {caseItem.field === 'industry' && <Factory className="w-16 h-16 text-ocean-500/30 group-hover:scale-110 transition-transform duration-500" />}
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 rounded-full bg-ocean-500/20 text-ocean-400 text-xs font-medium">
                         {fields.find(f => f.id === caseItem.field)?.label}

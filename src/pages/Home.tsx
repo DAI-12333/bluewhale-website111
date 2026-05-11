@@ -5,6 +5,11 @@ import {
   Award, TrendingUp, Users, Globe
 } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import { productImages } from '../config/images';
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -79,7 +84,7 @@ export default function Home() {
               className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20"
             >
               {[
-                { icon: Zap, value: '15kW', label: '最大功率输出' },
+                { icon: Zap, value: '10kW', label: '最大功率输出' },
                 { icon: Shield, value: '6+', label: '核心专利技术' },
                 { icon: Globe, value: '3', label: '全国/省级奖项' },
                 { icon: Users, value: '24/7', label: '全天候服务' },
@@ -129,7 +134,7 @@ export default function Home() {
               {
                 icon: Zap,
                 title: '高功率电能变换',
-                desc: '支持500W至15kW宽功率范围，满足不同规模移动装备的供电需求，转换效率高达95%以上',
+                desc: '支持500W至10kW宽功率范围，满足不同规模移动装备的供电需求，转换效率高达95%以上',
               },
               {
                 icon: Shield,
@@ -190,21 +195,21 @@ export default function Home() {
                 title: '陆上无线充电桩',
                 desc: '适用于无人机、AGV、巡检机器人等陆地移动装备的无线充电',
                 specs: ['功率范围: 500W-5kW', '充电距离: 50-200mm', '防护等级: IP65'],
-                image: '/images/product-land.jpg',
+                image: productImages['land-3'],
                 link: '/products?category=land',
               },
               {
                 title: '海下无线充电桩',
                 desc: '专为水下机器人、AUV等海洋装备设计，支持深海作业环境',
                 specs: ['功率范围: 1kW-10kW', '工作水深: 0-300m', '防护等级: IP68'],
-                image: '/images/product-sea.jpg',
+                image: productImages['sea-3'],
                 link: '/products?category=sea',
               },
               {
                 title: '移动式充电机器人',
                 desc: '自主导航的移动充电平台，为多种装备提供灵活补能服务',
-                specs: ['功率范围: 2kW-15kW', '导航方式: SLAM+视觉', '续航: 8小时'],
-                image: '/images/product-mobile.jpg',
+                specs: ['功率范围: 500W-2kW', '导航方式: SLAM+视觉', '续航: 8小时'],
+                image: productImages['mobile-3'],
                 link: '/products?category=mobile',
               },
             ].map((product, index) => (
@@ -214,9 +219,13 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 className="glass-card overflow-hidden hover-lift group"
               >
-                <div className="aspect-video bg-gradient-to-br from-dark-700 to-dark-600 flex items-center justify-center relative overflow-hidden">
+                <div className="aspect-video relative overflow-hidden">
+                  <img 
+                    src={product.image} 
+                    alt={product.title}
+                    className="w-full h-full object-cover"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-800/80 to-transparent z-10" />
-                  <Zap className="w-16 h-16 text-ocean-500/30 group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute bottom-4 left-4 z-20">
                     <h3 className="text-xl font-bold text-white">{product.title}</h3>
                   </div>
@@ -233,6 +242,7 @@ export default function Home() {
                   </ul>
                   <Link
                     to={product.link}
+                    onClick={scrollToTop}
                     className="inline-flex items-center gap-2 text-ocean-400 hover:text-ocean-300 font-medium transition-colors"
                   >
                     了解详情
@@ -318,20 +328,20 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                title: '蓝鲸动力荣获全国博士后创新创业大赛金奖',
-                date: '2026-04-15',
+                title: '荣获全国博士后创新创业大赛金奖',
+                date: '2023-10',
                 category: '公司新闻',
                 desc: '在第二届全国博士后创新创业大赛中，我司凭借海下无线供电技术荣获创新赛金奖',
               },
               {
                 title: '海上光伏巡检机器人无线充电系统成功部署',
-                date: '2026-03-28',
+                date: '2026-03',
                 category: '项目动态',
                 desc: '我司为某海上光伏电站提供的巡检机器人无线充电系统正式投入运营',
               },
               {
                 title: '无线供电技术在低空经济领域的应用前景',
-                date: '2026-03-10',
+                date: '2026-03',
                 category: '行业资讯',
                 desc: '随着低空经济的发展，无线供电技术将为无人机物流、巡检等场景提供重要支撑',
               },
@@ -377,11 +387,11 @@ export default function Home() {
                 我们都能为您提供专业的无线供电解决方案
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to="/contact" className="btn-primary text-base px-8 py-4">
+                <Link to="/contact" onClick={scrollToTop} className="btn-primary text-base px-8 py-4">
                   免费咨询
                   <ArrowRight className="w-5 h-5 inline ml-2" />
                 </Link>
-                <Link to="/products" className="btn-outline text-base px-8 py-4">
+                <Link to="/products" onClick={scrollToTop} className="btn-outline text-base px-8 py-4">
                   浏览产品
                 </Link>
               </div>

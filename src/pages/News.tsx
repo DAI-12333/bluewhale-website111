@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Tag, X } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import { newsImages } from '../config/images';
 
 interface NewsItem {
   id: string;
@@ -16,8 +17,8 @@ interface NewsItem {
 const newsItems: NewsItem[] = [
   {
     id: '1',
-    title: '蓝鲸动力荣获全国博士后创新创业大赛金奖',
-    date: '2026-04-15',
+    title: '荣获全国博士后创新创业大赛金奖',
+    date: '2023-10',
     category: '公司新闻',
     summary: '在第二届全国博士后创新创业大赛中，我司凭借海下无线供电技术荣获创新赛金奖。',
     content: `在第二届全国博士后创新创业大赛中，无锡蓝鲸动力科技有限公司凭借"海下无线供电系统"项目，从全国数千个参赛项目中脱颖而出，荣获创新赛金奖。
@@ -32,7 +33,7 @@ const newsItems: NewsItem[] = [
   {
     id: '2',
     title: '海上光伏巡检机器人无线充电系统成功部署',
-    date: '2026-03-28',
+    date: '2026-03',
     category: '项目动态',
     summary: '我司为某海上光伏电站提供的巡检机器人无线充电系统正式投入运营。',
     content: `近日，无锡蓝鲸动力科技有限公司为某海上光伏电站提供的巡检机器人无线充电系统正式投入商业运营。该系统采用我司自主研发的SW-10000海下无线充电桩，可为海上光伏巡检机器人提供全天候、全自动的能源补给服务。
@@ -49,7 +50,7 @@ const newsItems: NewsItem[] = [
   {
     id: '3',
     title: '无线供电技术在低空经济领域的应用前景',
-    date: '2026-03-10',
+    date: '2026-03',
     category: '行业资讯',
     summary: '随着低空经济的发展，无线供电技术将为无人机物流、巡检等场景提供重要支撑。',
     content: `随着国家低空经济政策的持续推进，无人机在物流配送、城市巡检、应急救援等领域的应用日益广泛。然而，续航时间短一直是制约无人机大规模应用的瓶颈问题。
@@ -67,25 +68,25 @@ const newsItems: NewsItem[] = [
   {
     id: '4',
     title: '蓝鲸动力发布新一代移动式充电机器人',
-    date: '2026-02-20',
+    date: '2026-02',
     category: '产品发布',
-    summary: 'MR-15000移动式充电机器人正式发布，支持15kW超大功率输出。',
-    content: `无锡蓝鲸动力科技有限公司正式发布新一代移动式充电机器人MR-15000。该产品最大功率输出达15kW，是目前市场上功率最大的移动充电设备之一。
+    summary: 'MR-2000移动式充电机器人正式发布，支持2kW功率输出。',
+    content: `无锡蓝鲸动力科技有限公司正式发布新一代移动式充电机器人MR-2000。该产品最大功率输出达2kW，采用先进的无线供电技术，为多种移动装备提供灵活的补能服务。
 
-MR-15000采用SLAM+视觉+RTK多传感器融合导航技术，可在复杂环境下自主规划路径，为多种移动装备提供灵活的补能服务。产品主要特点包括：
+MR-2000采用SLAM+视觉+RTK多传感器融合导航技术，可在复杂环境下自主规划路径。产品主要特点包括：
 
-1. 超大功率：15kW输出，满足特种装备快速补能需求
+1. 高效充电：2kW输出，满足多种装备补能需求
 2. 智能导航：多传感器融合，厘米级定位精度
 3. 集群协同：支持多台设备协同作业，提升充电效率
 4. 全天候作业：-30℃~+70℃宽温工作，适应各种环境
 
 该产品可广泛应用于工业现场、应急抢险、大型活动保障等场景，为移动装备提供"送电上门"服务。`,
-    tags: ['新产品', '充电机器人', '大功率'],
+    tags: ['新产品', '充电机器人', '智能'],
   },
   {
     id: '5',
     title: '公司与某电力集团签署战略合作协议',
-    date: '2026-02-05',
+    date: '2026-02',
     category: '公司新闻',
     summary: '双方将在电力系统巡检无人机充电网络建设方面开展深度合作。',
     content: `无锡蓝鲸动力科技有限公司与某大型电力集团正式签署战略合作协议。根据协议，双方将在电力系统巡检无人机充电网络建设、智能变电站巡检机器人供电系统等领域开展深度合作。
@@ -102,7 +103,7 @@ MR-15000采用SLAM+视觉+RTK多传感器融合导航技术，可在复杂环境
   {
     id: '6',
     title: '无线供电技术助力智能变电站无人化运维',
-    date: '2026-01-18',
+    date: '2026-01',
     category: '技术动态',
     summary: '我司无线供电技术在智能变电站巡检机器人中的应用案例分享。',
     content: `智能变电站是电网发展的重要方向，而巡检机器人是实现变电站无人化运维的关键装备。然而，传统有线充电方式在变电站强电磁环境下可靠性差，严重影响机器人作业效率。
@@ -188,9 +189,13 @@ export default function News() {
                   className="glass-card overflow-hidden hover-lift cursor-pointer group"
                   onClick={() => setSelectedNews(news)}
                 >
-                  <div className="aspect-video bg-gradient-to-br from-dark-700 to-dark-600 flex items-center justify-center relative">
+                  <div className="aspect-video relative overflow-hidden">
+                    <img 
+                      src={newsImages[news.id]} 
+                      alt={news.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark-800/80 to-transparent" />
-                    <span className="text-4xl opacity-30">📰</span>
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 rounded-full bg-ocean-500/20 text-ocean-400 text-xs font-medium">
                         {news.category}

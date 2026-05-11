@@ -6,6 +6,7 @@ import {
   Maximize2, CheckCircle
 } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import { productImages } from '../config/images';
 
 interface Product {
   id: string;
@@ -171,9 +172,9 @@ const products: Product[] = [
   },
   {
     id: 'mobile-1',
-    name: 'MR-2000 移动式充电机器人',
+    name: 'MR-500 移动式充电机器人',
     category: 'mobile',
-    power: '2kW',
+    power: '500W',
     description: '自主导航移动充电平台，可为多台设备提供灵活的补能服务，适用于仓库、园区等场景。',
     features: [
       'SLAM自主导航',
@@ -182,23 +183,23 @@ const products: Product[] = [
       '8小时续航能力',
     ],
     specs: {
-      '输出功率': '2kW',
-      '电池容量': '5kWh',
+      '输出功率': '500W',
+      '电池容量': '2kWh',
       '续航时间': '8小时',
       '导航方式': 'SLAM+视觉',
       '充电距离': '50-150mm',
-      '传输效率': '≥90%',
+      '传输效率': '≥88%',
       '工作温度': '-10℃~+50℃',
-      '尺寸': '600×500×1200mm',
-      '重量': '80kg',
+      '尺寸': '500×400×1000mm',
+      '重量': '50kg',
     },
     applications: ['仓库AGV', '园区巡检机器人', '服务机器人'],
   },
   {
     id: 'mobile-2',
-    name: 'MR-5000 移动式充电机器人',
+    name: 'MR-1000 移动式充电机器人',
     category: 'mobile',
-    power: '5kW',
+    power: '1kW',
     description: '大功率移动充电平台，支持快速充电，适用于工业现场、应急抢险等场景。',
     features: [
       '大功率快速充电',
@@ -207,23 +208,23 @@ const products: Product[] = [
       '全天候作业能力',
     ],
     specs: {
-      '输出功率': '5kW',
-      '电池容量': '10kWh',
+      '输出功率': '1kW',
+      '电池容量': '3kWh',
       '续航时间': '6小时',
       '导航方式': 'SLAM+视觉+GPS',
       '充电距离': '50-200mm',
-      '传输效率': '≥92%',
+      '传输效率': '≥88%',
       '工作温度': '-20℃~+60℃',
-      '尺寸': '800×600×1400mm',
-      '重量': '120kg',
+      '尺寸': '600×500×1200mm',
+      '重量': '80kg',
     },
     applications: ['工业现场', '应急抢险', '大型设备补能'],
   },
   {
     id: 'mobile-3',
-    name: 'MR-15000 移动式充电机器人',
+    name: 'MR-2000 移动式充电机器人',
     category: 'mobile',
-    power: '15kW',
+    power: '2kW',
     description: '超大功率移动充电平台，专为特种装备、大型无人机等提供快速补能服务。',
     features: [
       '超大功率输出',
@@ -232,15 +233,15 @@ const products: Product[] = [
       '智能路径规划',
     ],
     specs: {
-      '输出功率': '15kW',
-      '电池容量': '20kWh',
-      '续航时间': '4小时',
+      '输出功率': '2kW',
+      '电池容量': '5kWh',
+      '续航时间': '6小时',
       '导航方式': 'SLAM+视觉+RTK',
       '充电距离': '100-200mm',
-      '传输效率': '≥93%',
+      '传输效率': '≥90%',
       '工作温度': '-30℃~+70℃',
-      '尺寸': '1000×800×1600mm',
-      '重量': '200kg',
+      '尺寸': '800×600×1400mm',
+      '重量': '120kg',
     },
     applications: ['特种装备', '大型无人机', '电动车辆'],
   },
@@ -279,7 +280,7 @@ export default function Products() {
               产品<span className="gradient-text">中心</span>
             </h1>
             <p className="text-xl text-gray-400 leading-relaxed">
-              全系列无线供电产品，功率覆盖500W至15kW，满足不同应用场景的能源补给需求
+              全系列无线供电产品，功率覆盖500W至2kW，满足不同应用场景的能源补给需求
             </p>
           </motion.div>
         </div>
@@ -323,9 +324,13 @@ export default function Products() {
                   className="glass-card overflow-hidden hover-lift cursor-pointer group"
                   onClick={() => setSelectedProduct(product)}
                 >
-                  <div className="aspect-video bg-gradient-to-br from-dark-700 to-dark-600 flex items-center justify-center relative">
+                  <div className="aspect-video relative overflow-hidden">
+                    <img 
+                      src={productImages[product.id]} 
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark-800/80 to-transparent" />
-                    <Zap className="w-16 h-16 text-ocean-500/30 group-hover:scale-110 transition-transform duration-500" />
                     <div className="absolute top-4 right-4">
                       <span className="px-3 py-1 rounded-full bg-ocean-500/20 text-ocean-400 text-xs font-medium">
                         {product.power}

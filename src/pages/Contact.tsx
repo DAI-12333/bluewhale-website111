@@ -5,6 +5,7 @@ import {
   MessageSquare, User, Building, FileText
 } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import TencentMap from '../components/TencentMap';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -26,19 +27,49 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
+    
+    // 构建邮件内容
+    const subjectMap: Record<string, string> = {
+      product: '产品咨询',
+      technology: '技术合作',
+      business: '商务洽谈',
+      service: '售后服务',
+      other: '其他',
+    };
+    
+    const subject = subjectMap[formData.subject] || '其他';
+    const emailSubject = `蓝鲸动力官网咨询 - ${subject}`;
+    
+    const emailBody = `姓名: ${formData.name}
+公司: ${formData.company || '未填写'}
+邮箱: ${formData.email}
+电话: ${formData.phone || '未填写'}
+咨询类型: ${subject}
+
+留言内容:
+${formData.message}`;
+
+    // 使用 mailto 协议打开邮件客户端
+    const mailtoLink = `mailto:2738208501@qq.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+    
+    // 打开邮件客户端
+    const mailWindow = window.open(mailtoLink, '_blank');
+    
+    // 清空表单并显示成功
+    setFormData({
+      name: '',
+      company: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: '',
+    });
+    
     setIsSubmitted(true);
+    
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({
-        name: '',
-        company: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-      });
-    }, 3000);
+    }, 5000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -88,19 +119,19 @@ export default function Contact() {
                   {
                     icon: MapPin,
                     title: '公司地址',
-                    content: '江苏省无锡市滨湖区',
-                    detail: '国家集成电路设计中心',
+                    content: '江苏省无锡市新吴区清晏路32号',
+                    detail: '',
                   },
                   {
                     icon: Phone,
                     title: '联系电话',
-                    content: '400-XXX-XXXX',
+                    content: '18313187278',
                     detail: '周一至周五 9:00-18:00',
                   },
                   {
                     icon: Mail,
                     title: '电子邮箱',
-                    content: 'contact@bluewhale-power.com',
+                    content: '2738208501@qq.com',
                     detail: '商务合作 / 技术咨询',
                   },
                   {
@@ -128,16 +159,12 @@ export default function Contact() {
                 ))}
               </div>
 
-              {/* Map Placeholder */}
-              <div className="glass-card p-4">
-                <div className="aspect-video bg-gradient-to-br from-dark-700 to-dark-600 rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 text-ocean-500/30 mx-auto mb-3" />
-                    <p className="text-gray-500">江苏省无锡市滨湖区</p>
-                    <p className="text-sm text-gray-600">地图加载中...</p>
-                  </div>
-                </div>
-              </div>
+              {/* Tencent Map */}
+              <TencentMap 
+                address="江苏省无锡市新吴区清晏路32号"
+                center={{ lat: 31.485502, lng: 120.374540 }}
+                zoom={17}
+              />
             </motion.div>
 
             {/* Contact Form */}

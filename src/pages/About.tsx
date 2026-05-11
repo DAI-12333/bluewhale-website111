@@ -41,7 +41,7 @@ export default function About() {
               <h2 className="text-3xl font-bold text-white mb-6">企业简介</h2>
               <div className="space-y-4 text-gray-400 leading-relaxed">
                 <p>
-                  无锡蓝鲸动力科技有限公司总部位于江苏省无锡市滨湖区，是国内领先的移动装备无线供电系统解决方案提供商。
+                  无锡蓝鲸动力科技有限公司总部位于江苏省无锡市新吴区，是国内领先的移动装备无线供电系统解决方案提供商。
                   公司核心团队由来自国内知名高校的博士、硕士组成，在无线电能传输领域拥有深厚的技术积累。
                 </p>
                 <p>
@@ -63,7 +63,7 @@ export default function About() {
                   { icon: Users, label: '核心团队', value: '博士/硕士领衔' },
                   { icon: Award, label: '技术奖项', value: '3项全国/省级' },
                   { icon: Shield, label: '核心专利', value: '6件+' },
-                  { icon: TrendingUp, label: '功率覆盖', value: '500W-15kW' },
+                  { icon: TrendingUp, label: '功率覆盖', value: '500W-10kW' },
                 ].map((item, index) => (
                   <div key={index} className="text-center p-4">
                     <item.icon className="w-8 h-8 text-ocean-400 mx-auto mb-2" />
@@ -124,19 +124,19 @@ export default function About() {
           <div className="max-w-4xl mx-auto">
             {[
               {
-                year: '2026',
-                title: '公司成立',
-                desc: '无锡蓝鲸动力科技有限公司正式成立，聚焦移动装备无线供电系统研发',
+                year: '2023',
+                title: '荣获金奖',
+                desc: '在第二届全国博士后创新创业大赛中荣获创新赛金奖',
               },
               {
-                year: '2026',
+                year: '2025',
                 title: '技术突破',
                 desc: '成功研发海下无线充电桩原型机，支持300米水深作业',
               },
               {
                 year: '2026',
-                title: '荣获金奖',
-                desc: '在第二届全国博士后创新创业大赛中荣获创新赛金奖',
+                title: '公司成立',
+                desc: '无锡蓝鲸动力科技有限公司正式成立，聚焦移动装备无线供电系统研发',
               },
               {
                 year: '2026',

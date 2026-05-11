@@ -28,11 +28,11 @@ export default function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-ocean-500 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                </svg>
-              </div>
+              <img 
+                src="/1-Home Page/logo.png" 
+                alt="蓝鲸动力" 
+                className="w-12 h-12 object-contain"
+              />
               <div>
                 <h3 className="text-lg font-bold text-white">蓝鲸动力</h3>
                 <p className="text-[10px] text-ocean-400">BLUEWHALE POWER</p>
@@ -44,15 +44,15 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-sm text-gray-400">
                 <MapPin className="w-4 h-4 mt-0.5 text-ocean-400 shrink-0" />
-                <span>江苏省无锡市滨湖区</span>
+                <span>江苏省无锡市新吴区清晏路32号</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-gray-400">
                 <Phone className="w-4 h-4 text-ocean-400 shrink-0" />
-                <span>400-XXX-XXXX</span>
+                <span>18313187278</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-gray-400">
                 <Mail className="w-4 h-4 text-ocean-400 shrink-0" />
-                <span>contact@bluewhale-power.com</span>
+                <span>2738208501@qq.com</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-gray-400">
                 <Clock className="w-4 h-4 text-ocean-400 shrink-0" />

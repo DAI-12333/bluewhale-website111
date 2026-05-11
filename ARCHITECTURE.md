@@ -1,381 +1,857 @@
 # 蓝鲸动力官网 - 代码架构文档
 
-## 1. 项目概述
-
-本项目是**无锡蓝鲸动力科技有限公司**的官方网站，属于纯前端的单页应用（SPA），用于展示公司介绍、核心技术、产品中心、应用场景、新闻动态以及联系方式等信息。网站采用深色主题 + 毛玻璃拟态设计风格，所有数据均以静态常量形式内嵌于组件中，无需后端服务支撑。
+> 文档版本：1.0.0  
+> 最后更新：2026-05-06  
+> 项目名称：bluewhale-website  
+> 项目描述：无锡蓝鲸动力科技有限公司官方网站
 
 ---
 
-## 2. 目录结构
+## 1. 项目概述
+
+### 1.1 项目背景
+
+蓝鲸动力官网是无锡蓝鲸动力科技有限公司的官方网站，用于展示公司形象、产品信息、技术实力和新闻动态。公司专注于移动装备无线供电系统的研发与制造，产品涵盖陆上无线充电桩、海下无线充电桩和移动式充电机器人三大系列。
+
+### 1.2 项目类型
+
+- **类型**：企业展示型官网（单页应用 / SPA）
+- **技术架构**：React + TypeScript + Vite
+- **部署平台**：Vercel
+- **目标用户**：潜在客户、合作伙伴、行业专家、投资者
+
+### 1.3 核心业务
+
+- 产品展示与介绍
+- 技术实力展示
+- 应用案例分享
+- 新闻动态发布
+- 在线咨询与联系
+
+---
+
+## 2. 技术栈详解
+
+### 2.1 核心框架
+
+| 技术 | 版本 | 说明 |
+|------|------|------|
+| **React** | ^18.2.0 | UI 框架，采用函数式组件 + Hooks 模式 |
+| **TypeScript** | ^5.2.2 | 类型安全，增强代码可维护性 |
+| **Vite** | ^5.1.4 | 现代化构建工具，快速热更新 |
+
+### 2.2 路由与导航
+
+| 技术 | 版本 | 说明 |
+|------|------|------|
+| **react-router-dom** | ^6.22.0 | 客户端路由管理，支持声明式路由配置 |
+
+### 2.3 UI 与样式
+
+| 技术 | 版本 | 说明 |
+|------|------|------|
+| **Tailwind CSS** | ^3.4.1 | 原子化 CSS 框架，快速构建响应式界面 |
+| **PostCSS** | ^8.4.35 | CSS 转换工具 |
+| **Autoprefixer** | ^10.4.18 | 自动添加浏览器前缀 |
+
+### 2.4 动画与图标
+
+| 技术 | 版本 | 说明 |
+|------|------|------|
+| **framer-motion** | ^11.0.0 | 声明式动画库，支持复杂交互动效 |
+| **lucide-react** | ^0.344.0 | 轻量级图标库（基于 Lucide Icons） |
+
+### 2.5 代码质量
+
+| 技术 | 版本 | 说明 |
+|------|------|------|
+| **ESLint** | ^9.0.0 | 代码静态检查 |
+| **@typescript-eslint** | ^8.0.0 | TypeScript 代码检查 |
+
+---
+
+## 3. 目录结构
 
 ```
 bluewhale-website/
-├── dist/                          # 构建输出目录（Vercel 部署来源）
-│   ├── assets/                    # 静态资源（JS/CSS，含 hash 文件名）
-│   └── index.html                 # 构建后入口 HTML
-├── src/                           # 源码目录
-│   ├── components/                # 公共组件
-│   │   ├── Navbar.tsx             # 顶部导航栏（含桌面/移动端菜单、下拉子菜单）
-│   │   ├── Footer.tsx             # 页脚（公司信息、链接分组、版权声明）
-│   │   ├── PageTransition.tsx     # 页面切换过渡动画包裹组件
-│   │   └── ScrollToTop.tsx        # 路由切换时自动滚动至顶部
-│   ├── pages/                     # 页面组件
-│   │   ├── Home.tsx               # 首页（Hero、核心优势、产品概览、应用场景、新闻预览、CTA）
-│   │   ├── About.tsx              # 关于我们（企业简介、愿景使命、发展历程、核心业务、战略布局）
-│   │   ├── Technology.tsx         # 核心技术（技术体系、核心专利、荣誉奖项、技术对比表）
-│   │   ├── Products.tsx           # 产品中心（分类筛选、产品网格、产品详情弹窗）
-│   │   ├── Applications.tsx       # 应用场景（领域筛选、案例网格、案例详情弹窗）
-│   │   ├── News.tsx               # 新闻动态（分类筛选、新闻列表、新闻详情弹窗）
-│   │   └── Contact.tsx            # 联系我们（联系信息、在线表单、FAQ）
-│   ├── App.tsx                    # 应用根组件（路由配置、全局布局）
-│   ├── main.tsx                   # 应用入口（ReactDOM 挂载、BrowserRouter 注入）
-│   ├── index.css                  # 全局样式（Tailwind 指令 + 自定义样式类）
-│   └── vite-env.d.ts              # Vite 环境类型声明
-├── index.html                     # HTML 入口模板（SEO 元信息、字体加载）
-├── package.json                   # 项目依赖与脚本
-├── vite.config.ts                 # Vite 构建配置（别名、代码分割、Source Map）
-├── tailwind.config.js             # Tailwind CSS 配置（自定义颜色、字体、动画）
-├── postcss.config.js              # PostCSS 配置（Tailwind + Autoprefixer）
-├── tsconfig.json                  # TypeScript 编译配置
-├── tsconfig.node.json             # Node 环境 TypeScript 配置
-└── vercel.json                    # Vercel 部署配置
+├── public/                     # 静态资源目录
+│   └── favicon.svg             # 网站 favicon
+│
+├── src/                        # 源代码目录
+│   ├── components/             # 可复用组件
+│   │   ├── Footer.tsx         # 页脚组件
+│   │   ├── Navbar.tsx          # 导航栏组件
+│   │   ├── PageTransition.tsx  # 页面过渡动画组件
+│   │   └── ScrollToTop.tsx     # 滚动置顶组件
+│   │
+│   ├── pages/                  # 页面组件
+│   │   ├── Home.tsx           # 首页
+│   │   ├── About.tsx          # 关于我们
+│   │   ├── Technology.tsx      # 核心技术
+│   │   ├── Products.tsx        # 产品中心
+│   │   ├── Applications.tsx    # 应用场景
+│   │   ├── News.tsx           # 新闻动态
+│   │   └── Contact.tsx         # 联系我们
+│   │
+│   ├── App.tsx                # 应用根组件（路由配置）
+│   ├── main.tsx               # 应用入口文件
+│   ├── index.css              # 全局样式（Tailwind 入口）
+│   └── vite-env.d.ts          # Vite 类型声明
+│
+├── dist/                       # 构建输出目录（部署用）
+│
+├── index.html                  # HTML 模板
+│
+├── package.json                # 项目配置与依赖
+├── package-lock.json           # 依赖锁定文件
+│
+├── tsconfig.json               # TypeScript 配置
+├── tsconfig.node.json          # Node 环境 TypeScript 配置
+│
+├── vite.config.ts             # Vite 构建配置
+├── tailwind.config.js         # Tailwind CSS 配置
+├── postcss.config.js          # PostCSS 配置
+│
+├── eslint.config.js            # ESLint 配置
+│
+├── vercel.json                # Vercel 部署配置
+│
+└── ARCHITECTURE.md            # 本架构文档
 ```
 
 ---
 
-## 3. 技术栈
+## 4. 模块职责详解
 
-| 类别 | 技术 | 版本 | 用途 |
-|------|------|------|------|
-| **UI 框架** | React | ^18.2.0 | 声明式组件化 UI 开发 |
-| **类型系统** | TypeScript | ^5.2.2 | 静态类型检查，提升代码健壮性 |
-| **构建工具** | Vite | ^5.1.4 | 开发服务器 + 生产构建，HMR 热更新 |
-| **路由** | React Router DOM | ^6.22.0 | 客户端 SPA 路由管理 |
-| **动画** | Framer Motion | ^11.0.0 | 页面过渡、滚动动画、交互反馈 |
-| **图标** | Lucide React | ^0.344.0 | 轻量级 SVG 图标库 |
-| **样式** | Tailwind CSS | ^3.4.1 | 原子化 CSS 框架 |
-| **CSS 后处理** | PostCSS + Autoprefixer | ^8.4.35 / ^10.4.18 | 自动添加浏览器前缀 |
-| **部署** | Vercel | - | 静态站点托管与自动部署 |
+### 4.1 入口模块
+
+#### `main.tsx` - 应用入口
+
+**职责**：
+- 创建 React 根节点
+- 配置 BrowserRouter（路由）
+- 挂载全局样式
+
+**核心代码**：
+```tsx
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+)
+```
+
+#### `App.tsx` - 根组件
+
+**职责**：
+- 定义路由表
+- 组织页面布局结构
+- 渲染全局组件（Navbar、Footer、ScrollToTop）
+
+**路由配置**：
+| 路径 | 组件 | 说明 |
+|------|------|------|
+| `/` | Home | 首页 |
+| `/about` | About | 关于我们 |
+| `/technology` | Technology | 核心技术 |
+| `/products` | Products | 产品中心 |
+| `/applications` | Applications | 应用场景 |
+| `/news` | News | 新闻动态 |
+| `/contact` | Contact | 联系我们 |
 
 ---
 
-## 4. 架构设计
+### 4.2 全局组件
 
-### 4.1 应用启动流程
+#### `Navbar.tsx` - 导航栏
 
-```
-index.html
-  └─ <script type="module" src="/src/main.tsx">
-       └─ ReactDOM.createRoot(#root)
-            └─ <React.StrictMode>
-                 └─ <BrowserRouter>        ← 路由容器
-                      └─ <App />           ← 应用根组件
-```
+**功能特性**：
+- 响应式导航菜单（桌面/移动端）
+- 滚动时背景变化效果
+- 下拉菜单（产品分类、应用场景）
+- 路由高亮显示
+- 移动端侧边栏菜单
 
-### 4.2 全局布局结构
-
-`App.tsx` 定义了所有页面共享的布局骨架：
-
-```
-┌──────────────────────────────────────┐
-│  ScrollToTop（路由切换自动回顶）       │  ← 无 UI 渲染
-├──────────────────────────────────────┤
-│  Navbar（固定定位，滚动透明→毛玻璃）    │  ← z-50，始终可见
-├──────────────────────────────────────┤
-│                                      │
-│  <main>                              │
-│    <Routes>                          │
-│      └─ 各页面组件                     │  ← 路由匹配渲染
-│    </Routes>                         │
-│  </main>                             │
-│                                      │
-├──────────────────────────────────────┤
-│  Footer                              │  ← 页面底部
-└──────────────────────────────────────┘
+**状态管理**：
+```typescript
+const [isScrolled, setIsScrolled] = useState(false)       // 滚动状态
+const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)  // 移动端菜单
+const [activeDropdown, setActiveDropdown] = useState<string | null>(null)  // 下拉菜单
 ```
 
-### 4.3 路由映射
+**导航项配置**：
+```typescript
+const navItems = [
+  { label: '首页', path: '/' },
+  { label: '关于我们', path: '/about' },
+  { label: '核心技术', path: '/technology' },
+  { label: '产品中心', path: '/products', children: [...] },
+  { label: '应用场景', path: '/applications', children: [...] },
+  { label: '新闻动态', path: '/news' },
+  { label: '联系我们', path: '/contact' },
+]
+```
 
-| 路径 | 页面组件 | 说明 |
-|------|----------|------|
-| `/` | `Home` | 首页 |
-| `/about` | `About` | 关于我们 |
-| `/technology` | `Technology` | 核心技术 |
-| `/products` | `Products` | 产品中心 |
-| `/applications` | `Applications` | 应用场景 |
-| `/news` | `News` | 新闻动态 |
-| `/contact` | `Contact` | 联系我们 |
+#### `Footer.tsx` - 页脚
 
-其中 `/products` 和 `/applications` 页面支持 URL Search Params 进行分类筛选：
-- `/products?category=land|sea|mobile`
-- `/applications?field=transport|ocean|industry`
+**功能特性**：
+- 公司信息展示
+- 链接分组（产品、应用场景、公司）
+- 联系方式
+- 版权信息与法律链接
+
+#### `PageTransition.tsx` - 页面过渡
+
+**功能特性**：
+- 使用 framer-motion 实现入场动画
+- 统一页面切换效果
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  exit={{ opacity: 0, y: -20 }}
+  transition={{ duration: 0.4, ease: 'easeOut' }}
+>
+  {children}
+</motion.div>
+```
+
+#### `ScrollToTop.tsx` - 滚动置顶
+
+**功能特性**：
+- 监听路由变化
+- 自动滚动到页面顶部
+- 平滑滚动效果
 
 ---
 
-## 5. 模块职责详解
+### 4.3 页面组件
 
-### 5.1 公共组件层 (`src/components/`)
+#### `Home.tsx` - 首页
 
-#### Navbar
-- **功能**：顶部全局导航栏，固定于页面顶部
-- **状态管理**：
-  - `isScrolled` — 监听滚动事件，控制导航栏背景（透明 → 毛玻璃效果）
-  - `isMobileMenuOpen` — 移动端侧边菜单开关
-  - `activeDropdown` — 桌面端下拉子菜单当前激活项
-- **导航数据**：通过 `navItems` 常量定义，支持二级菜单（`children` 字段）
-- **响应式**：桌面端水平导航 + 悬停下拉；移动端汉堡菜单 + 侧边抽屉
-- **动画**：使用 Framer Motion 的 `AnimatePresence` 实现下拉菜单与移动端菜单的进出动画
+**页面结构**：
+1. **Hero Section** - 主视觉区域
+   - 公司 slogan
+   - 核心数据展示（15kW、6+专利、3项奖项、24/7服务）
+   - CTA 按钮
 
-#### Footer
-- **功能**：页面底部信息区域
-- **内容**：公司简介与联系信息、产品链接、应用场景链接、公司页面链接、版权声明
-- **链接数据**：通过 `footerLinks` 常量定义，与 Navbar 保持一致的链接结构
+2. **核心优势** - 6 大核心优势展示
+   - 高功率电能变换
+   - 强兼容抗偏移
+   - 环境自适应
+   - 实时状态监测
+   - 一体式设计
+   - 全场景覆盖
 
-#### PageTransition
-- **功能**：页面切换时的淡入上移动画包裹组件
-- **实现**：Framer Motion `motion.div`，设置 `initial`、`animate`、`exit` 动画状态
-- **使用方式**：每个页面组件的根元素均被 `<PageTransition>` 包裹
+3. **产品中心** - 3 大产品系列预览
+   - 陆上无线充电桩
+   - 海下无线充电桩
+   - 移动式充电机器人
 
-#### ScrollToTop
-- **功能**：路由路径变化时自动平滑滚动至页面顶部
-- **实现**：监听 `useLocation()` 的 `pathname` 变化，调用 `window.scrollTo()`
-- **无 UI**：组件返回 `null`，仅产生副作用
+4. **应用场景** - 3 大应用领域
+   - 交通运输
+   - 海洋工程
+   - 工业与民生
 
-### 5.2 页面组件层 (`src/pages/`)
+5. **新闻动态** - 最新 3 条新闻
 
-#### Home — 首页
-- **区块**：Hero 区域 → 核心优势 → 产品概览 → 应用场景 → 新闻预览 → CTA 行动号召
-- **数据**：各区块的展示数据均以数组常量形式定义在组件内部
-- **动画模式**：统一使用 `fadeInUp` 变体实现滚动触发动画，`staggerContainer`/`staggerItem` 实现列表交错动画
+6. **CTA Section** - 行动号召
 
-#### About — 关于我们
-- **区块**：Hero → 企业简介 → 愿景使命 → 发展历程 → 核心业务 → 战略布局
-- **特点**：发展历程使用时间线布局；战略布局聚焦海洋工程与低空经济两大方向
+**动画配置**：
+```typescript
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-50px' },
+  transition: { duration: 0.6 }
+}
+```
 
-#### Technology — 核心技术
-- **区块**：Hero → 技术体系 → 核心专利 → 荣誉奖项 → 技术对比表
-- **数据**：`technologies`（3 大核心技术）、`patents`（6 件专利）、`awards`（3 项荣誉）
-- **技术对比表**：以 HTML `<table>` 展示蓝鲸无线供电 vs 传统有线充电 vs 电池更换的对比
+#### `About.tsx` - 关于我们
 
-#### Products — 产品中心
-- **交互模式**：分类筛选 → 网格浏览 → 弹窗查看详情
-- **状态管理**：
-  - `activeCategory` — 从 URL Search Params 读取当前筛选分类
-  - `selectedProduct` — 当前选中查看详情的产品（`null` 表示弹窗关闭）
-- **数据模型**：`Product` 接口定义了 `id`、`name`、`category`、`power`、`features`、`specs`、`applications` 等字段
-- **9 款产品**：分属 land（陆上 3 款）、sea（海下 3 款）、mobile（移动式 3 款）三大类
+**页面结构**：
+1. **Hero** - 页面标题
+2. **企业简介** - 公司介绍 + 数据卡片
+3. **企业愿景与使命** - 双卡片布局
+4. **发展历程** - 时间轴展示
+5. **核心业务** - 3 大业务方向
+6. **战略布局** - 海洋工程 + 低空经济
 
-#### Applications — 应用场景
-- **交互模式**：领域筛选 → 案例网格 → 弹窗查看详情
-- **与 Products 结构类似**：同样使用 `useSearchParams` 驱动筛选，`useState` 管理弹窗状态
-- **数据模型**：`CaseStudy` 接口定义了 `challenge`（痛点）、`solution`（方案）、`result`（效果）等业务字段
-- **6 个案例**：分属 transport（2 个）、ocean（2 个）、industry（2 个）三大领域
+#### `Technology.tsx` - 核心技术
 
-#### News — 新闻动态
-- **交互模式**：分类筛选（组件内 `useState`）→ 新闻列表 → 弹窗查看全文
-- **与 Products/Applications 的区别**：分类筛选不使用 URL 参数，而是组件内部状态
-- **6 篇新闻**：分为公司新闻、项目动态、行业资讯、产品发布、技术动态五类
+**页面结构**：
+1. **技术体系** - 3 大核心技术详情
+   - 高功率电能变换技术
+   - 强兼容抗偏移无线供电技术
+   - 环境自适应技术
 
-#### Contact — 联系我们
-- **区块**：联系信息 → 在线咨询表单 → 常见问题（FAQ）
-- **表单状态**：`formData`（6 个字段）+ `isSubmitted`（提交成功标识）
-- **表单提交**：当前为模拟提交（`setTimeout` 模拟），3 秒后重置表单
+2. **核心专利** - 6 项专利展示
+
+3. **荣誉奖项** - 3 项奖项展示
+
+4. **技术优势对比** - 技术方案对比表格
+
+#### `Products.tsx` - 产品中心
+
+**功能特性**：
+- 分类筛选（全部/陆上/海下/移动式）
+- 产品卡片网格展示
+- 产品详情弹窗（Modal）
+
+**数据结构**：
+```typescript
+interface Product {
+  id: string
+  name: string
+  category: string
+  power: string
+  description: string
+  features: string[]
+  specs: Record<string, string>
+  applications: string[]
+}
+```
+
+**产品列表**：
+| 类别 | 产品 | 功率 |
+|------|------|------|
+| 陆上 | LW-500 | 500W |
+| 陆上 | LW-2000 | 2kW |
+| 陆上 | LW-5000 | 5kW |
+| 海下 | SW-1000 | 1kW |
+| 海下 | SW-5000 | 5kW |
+| 海下 | SW-10000 | 10kW |
+| 移动式 | MR-2000 | 2kW |
+| 移动式 | MR-5000 | 5kW |
+| 移动式 | MR-15000 | 15kW |
+
+#### `Applications.tsx` - 应用场景
+
+**功能特性**：
+- 领域筛选（全部/交通运输/海洋工程/工业民生）
+- 案例卡片展示
+- 案例详情弹窗（包含痛点/解决方案/效果）
+
+**案例数据**：
+- 智慧物流园区 AGV 无线充电系统
+- 无人机物流配送充电网络
+- 海上光伏巡检机器人无线充电系统
+- 水下观测网 AUV 能源补给站
+- 电力系统巡检无人机充电网络
+- 智能变电站巡检机器人充电系统
+
+#### `News.tsx` - 新闻动态
+
+**功能特性**：
+- 分类筛选（公司新闻/项目动态/行业资讯/产品发布/技术动态）
+- 新闻卡片展示
+- 新闻详情弹窗
+
+**数据结构**：
+```typescript
+interface NewsItem {
+  id: string
+  title: string
+  date: string
+  category: string
+  summary: string
+  content: string
+  tags: string[]
+}
+```
+
+#### `Contact.tsx` - 联系我们
+
+**页面结构**：
+1. **联系方式** - 地址、电话、邮箱、工作时间
+2. **在线咨询表单** - 姓名、公司、邮箱、电话、咨询类型、留言
+3. **常见问题（FAQ）** - 5 个常见问题解答
+
+**表单状态**：
+```typescript
+const [formData, setFormData] = useState({
+  name: '',
+  company: '',
+  email: '',
+  phone: '',
+  subject: '',
+  message: '',
+})
+const [isSubmitted, setIsSubmitted] = useState(false)
+```
+
+---
+
+## 5. 样式系统
+
+### 5.1 Tailwind CSS 配置
+
+**自定义颜色**：
+
+```javascript
+// 主色调 - 蓝色系
+colors: {
+  primary: {
+    50: '#e6f0ff', ... 900: '#001433'
+  }
+}
+
+// 海洋色系
+colors: {
+  ocean: {
+    50: '#e6f7fb', ... 900: '#00232b'
+  }
+}
+
+// 深色主题
+colors: {
+  dark: {
+    900: '#0a1628',
+    800: '#0f1d32',
+    700: '#162544',
+    600: '#1e3055',
+  }
+}
+```
+
+### 5.2 自定义组件类
+
+```css
+@layer components {
+  /* 区块容器 */
+  .section-container { /* 响应式内边距 */ }
+  
+  /* 区块内边距 */
+  .section-padding { /* 垂直内边距 */ }
+  
+  /* 渐变文字 */
+  .gradient-text { /* 蓝紫渐变 */ }
+  
+  /* 玻璃态卡片 */
+  .glass-card { /* 半透明背景 + 边框 */ }
+  
+  /* 悬停上浮效果 */
+  .hover-lift { /* transform + shadow */ }
+  
+  /* 主要按钮 */
+  .btn-primary { /* 渐变背景 + 悬停效果 */ }
+  
+  /* 轮廓按钮 */
+  .btn-outline { /* 边框 + 悬停填充 */ }
+}
+```
+
+### 5.3 全局样式
+
+```css
+@layer base {
+  /* 基础字体 */
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  body {
+    font-family: 'Noto Sans SC', 'Inter', system-ui, sans-serif;
+    background-color: #0a1628;
+    color: #e2e8f0;
+  }
+  
+  /* 选中文本样式 */
+  ::selection {
+    background-color: rgba(0, 175, 215, 0.3);
+    color: #ffffff;
+  }
+}
+```
 
 ---
 
 ## 6. 数据流向
 
-### 6.1 整体数据流
-
-本项目为纯静态展示站点，**无后端 API 调用**，所有数据内嵌于各页面组件中：
+### 6.1 组件间数据流
 
 ```
-常量数据（组件内定义）
-    ↓
-页面组件渲染
-    ↓
-用户交互（筛选 / 点击查看详情）
-    ↓
-本地状态更新（useState / useSearchParams）
-    ↓
-UI 重新渲染
+App.tsx (根组件)
+    │
+    ├── ScrollToTop (监听路由变化)
+    ├── Navbar (接收路由信息，高亮当前页面)
+    │
+    ├── Routes (路由匹配)
+    │   ├── / → Home
+    │   ├── /about → About
+    │   ├── /technology → Technology
+    │   ├── /products → Products
+    │   │   └── useSearchParams (URL 参数过滤)
+    │   ├── /applications → Applications
+    │   │   └── useSearchParams (URL 参数过滤)
+    │   ├── /news → News
+    │   └── /contact → Contact
+    │       └── useState (表单状态管理)
+    │
+    └── Footer (纯展示组件)
 ```
 
-### 6.2 关键交互数据流
+### 6.2 状态管理方案
 
-#### 产品/应用场景筛选
+本项目采用 **React Hooks** 进行状态管理，无需引入 Redux 等状态管理库：
 
+| 状态类型 | 实现方式 | 使用场景 |
+|----------|----------|----------|
+| 组件状态 | `useState` | 表单数据、弹窗状态、筛选条件 |
+| 副作用 | `useEffect` | 滚动监听、路由变化处理 |
+| 路由参数 | `useSearchParams` | 产品/案例分类筛选 |
+| 动画状态 | framer-motion | 页面过渡、元素动画 |
+
+### 6.3 URL 参数流
+
+**产品筛选**：
 ```
-URL Search Params (?category=land)
-        ↓
-  useSearchParams() 读取
-        ↓
-  计算 filteredProducts / filteredCases
-        ↓
-  AnimatePresence 渲染筛选后的列表
-```
-
-#### 详情弹窗
-
-```
-用户点击卡片
-        ↓
-  setSelectedProduct(product) / setSelectedCase(caseItem)
-        ↓
-  条件渲染 Modal（AnimatePresence 包裹）
-        ↓
-  用户点击关闭 / 遮罩层
-        ↓
-  setSelectedProduct(null) / setSelectedCase(null)
+URL: /products?category=land
+        │
+        └── useSearchParams() → activeCategory = 'land'
+                                    │
+                                    └── filteredProducts = products.filter(p => p.category === 'land')
 ```
 
-#### 导航栏状态
-
+**案例筛选**：
 ```
-window.scroll 事件
-        ↓
-  setIsScrolled(window.scrollY > 20)
-        ↓
-  导航栏样式切换（透明 ↔ 毛玻璃背景）
-
-useLocation() 变化
-        ↓
-  关闭移动端菜单 + 重置下拉状态
-        ↓
-  高亮当前路由对应的导航项
+URL: /applications?field=ocean
+        │
+        └── useSearchParams() → activeField = 'ocean'
+                                    │
+                                    └── filteredCases = caseStudies.filter(c => c.field === 'ocean')
 ```
 
 ---
 
-## 7. 设计系统
+## 7. 构建与部署
 
-### 7.1 自定义颜色
-
-在 `tailwind.config.js` 中定义了三组语义化颜色：
-
-| 色组 | 用途 | 关键色值 |
-|------|------|----------|
-| `primary` | 品牌主色（蓝色系） | `500: #0066ff` |
-| `ocean` | 海洋辅助色（青色系） | `500: #00afd7` |
-| `dark` | 深色背景 | `900: #0a1628`（最深）、`800: #0f1d32`、`700: #162544`、`600: #1e3055` |
-
-### 7.2 自定义 CSS 类（`index.css` @layer components）
-
-| 类名 | 作用 |
-|------|------|
-| `.section-container` | 内容区水平内边距，响应式适配 |
-| `.section-padding` | 区块垂直内边距（py-16 → py-24） |
-| `.gradient-text` | 文字渐变效果（ocean-400 → primary-400） |
-| `.glass-card` | 毛玻璃卡片（半透明深色背景 + 模糊 + 边框 + 圆角） |
-| `.hover-lift` | 悬停上浮效果（上移 + 阴影 + 过渡） |
-| `.btn-primary` | 主按钮（渐变背景 + 悬停缩放阴影） |
-| `.btn-outline` | 描边按钮（边框 + 悬停填充） |
-
-### 7.3 动画
-
-| 动画名 | 定义位置 | 效果 |
-|--------|----------|------|
-| `fade-in` | Tailwind 配置 | 0.5s 淡入 |
-| `slide-up` | Tailwind 配置 | 0.5s 上移淡入 |
-| `pulse-slow` | Tailwind 配置 | 3s 慢速脉冲 |
-| `fadeInUp` | 页面组件内 | 滚动触发淡入上移（Framer Motion `whileInView`） |
-| `staggerItem` | 页面组件内 | 列表项交错出现 |
-
----
-
-## 8. 构建与部署
-
-### 8.1 构建配置（`vite.config.ts`）
-
-- **路径别名**：`@/` → `./src/`，需与 `tsconfig.json` 中 `paths` 配置保持一致
-- **代码分割**（`manualChunks`）：
-  - `vendor` — React、ReactDOM、React Router DOM
-  - `animation` — Framer Motion
-- **Source Map**：生产构建开启 `sourcemap: true`
-- **输出目录**：`dist/`
-
-### 8.2 构建脚本
+### 7.1 开发环境
 
 ```bash
-npm run dev       # 启动 Vite 开发服务器（HMR）
-npm run build     # TypeScript 编译 + Vite 生产构建
-npm run preview   # 预览生产构建结果
-npm run lint      # ESLint 代码检查
+# 安装依赖
+npm install
+
+# 启动开发服务器（热重载）
+npm run dev
+
+# 代码检查
+npm run lint
 ```
 
-### 8.3 Vercel 部署
+### 7.2 生产构建
 
-`vercel.json` 配置：
-- `buildCommand`: `npm run build`
-- `outputDirectory`: `dist`
-- `framework`: `vite`
+```bash
+# TypeScript 类型检查 + Vite 构建
+npm run build
 
-Vercel 会自动识别 `vercel.json`，每次推送到主分支后自动触发构建和部署。SPA 路由需确保 Vercel 将所有路径重写到 `index.html`（Vercel 对 Vite 框架默认支持）。
+# 预览构建结果
+npm run preview
+```
 
----
+### 7.3 Vite 配置
 
-## 9. 代码约定
+```typescript
+// vite.config.ts
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),  // 路径别名
+    },
+  },
+  build: {
+    outDir: 'dist',        // 输出目录
+    sourcemap: true,       // 生成 sourcemap
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],  // 第三方库分包
+          animation: ['framer-motion'],                        // 动画库分包
+        },
+      },
+    },
+  },
+})
+```
 
-### 9.1 命名规范
+### 7.4 Vercel 部署配置
 
-- **组件文件**：PascalCase（如 `Navbar.tsx`、`PageTransition.tsx`）
-- **组件函数**：PascalCase，使用 `export default function` 导出
-- **常量数据**：camelCase（如 `navItems`、`products`、`caseStudies`）
-- **接口/类型**：PascalCase（如 `Product`、`CaseStudy`、`NewsItem`）
-
-### 9.2 组件结构模式
-
-页面组件普遍遵循以下结构：
-
-```tsx
-import { motion } from 'framer-motion';
-import { ... } from 'lucide-react';
-import PageTransition from '../components/PageTransition';
-
-// 1. 动画变体定义
-const fadeInUp = { ... };
-
-// 2. 数据常量定义
-const data = [ ... ];
-
-// 3. 组件导出
-export default function PageName() {
-  // 4. 状态声明
-  const [state, setState] = useState(...);
-
-  // 5. 派生数据计算
-  const filteredData = ...;
-
-  // 6. JSX 返回
-  return (
-    <PageTransition>
-      {/* Hero 区块 */}
-      <section>...</section>
-      {/* 内容区块 */}
-      <section>...</section>
-      {/* 弹窗（可选） */}
-      <AnimatePresence>...</AnimatePresence>
-    </PageTransition>
-  );
+```json
+// vercel.json
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite"
 }
 ```
 
-### 9.3 样式约定
+---
 
-- 优先使用 Tailwind 原子类，避免内联样式
-- 复用 `index.css` 中定义的自定义组件类（`.glass-card`、`.btn-primary` 等）
-- 响应式断点遵循 Tailwind 默认配置：`sm:640px`、`md:768px`、`lg:1024px`、`xl:1280px`、`2xl:1536px`
+## 8. 关键设计模式
+
+### 8.1 组件设计
+
+**函数式组件 + Hooks**：
+```tsx
+// 示例：带本地状态的函数式组件
+export default function Component() {
+  const [state, setState] = useState(initialValue)
+  
+  useEffect(() => {
+    // 副作用处理
+    return () => {} // 清理函数
+  }, [dependencies])
+  
+  return <div>{/* JSX */}</div>
+}
+```
+
+### 8.2 复用模式
+
+**数据驱动渲染**：
+```tsx
+// 使用数据数组 + map 渲染
+const items = [
+  { icon: Zap, title: '优势1', desc: '描述1' },
+  { icon: Shield, title: '优势2', desc: '描述2' },
+]
+
+{items.map((item, index) => (
+  <div key={index}>
+    <item.icon />
+    <h3>{item.title}</h3>
+    <p>{item.desc}</p>
+  </div>
+))}
+```
+
+**统一动画配置**：
+```tsx
+// 抽离动画配置，便于复用
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-50px' },
+  transition: { duration: 0.6 }
+}
+
+// 使用
+<motion.div {...fadeInUp} />
+```
+
+### 8.3 条件渲染模式
+
+**Modal 弹窗**：
+```tsx
+<AnimatePresence>
+  {isOpen && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        initial={{ scale: 0.9, y: 20 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.9, y: 20 }}
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+```
 
 ---
 
-## 10. 已知局限与优化方向
+## 9. 性能优化
 
-| 层面 | 现状 | 优化建议 |
+### 9.1 代码分割
+
+通过 Vite 的 `manualChunks` 配置实现代码分割：
+
+| Chunk | 包含模块 | 目的 |
+|--------|----------|------|
+| vendor | react, react-dom, react-router-dom | 第三方库长期缓存 |
+| animation | framer-motion | 动画库独立加载 |
+
+### 9.2 路由懒加载
+
+当前实现为静态导入，可根据需要改为懒加载：
+
+```tsx
+// 懒加载方式（可选优化）
+const Home = lazy(() => import('./pages/Home'))
+const About = lazy(() => import('./pages/About'))
+
+// 需要配合 Suspense 使用
+<Suspense fallback={<Loading />}>
+  <Routes>
+    <Route path="/" element={<Home />} />
+  </Routes>
+</Suspense>
+```
+
+### 9.3 动画优化
+
+- 使用 `viewport: { once: true }` 确保元素只动画一次
+- 合理设置动画延迟，避免同时触发过多动画
+- 使用 `AnimatePresence mode="popLayout"` 优化列表动画
+
+---
+
+## 10. SEO 与可访问性
+
+### 10.1 Meta 信息
+
+```html
+<meta name="description" content="无锡蓝鲸动力科技有限公司 - 移动装备无线供电系统专业提供商..." />
+<meta name="keywords" content="无线供电,无线充电,水下机器人,无人机..." />
+<title>无锡蓝鲸动力科技有限公司 - 移动装备无线供电系统专家</title>
+```
+
+### 10.2 字体优化
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+```
+
+### 10.3 响应式设计
+
+- 移动端优先的断点设计
+- 灵活使用 Tailwind 响应式前缀（sm/md/lg/xl/2xl）
+- 触摸友好的交互元素尺寸
+
+---
+
+## 11. 开发规范
+
+### 11.1 命名规范
+
+| 类型 | 规范 | 示例 |
+|------|------|------|
+| 组件文件 | PascalCase.tsx | `Navbar.tsx` |
+| 工具文件 | camelCase.ts | `useAuth.ts` |
+| 样式类 | kebab-case | `glass-card`, `section-container` |
+| 常量 | UPPER_SNAKE_CASE | `MAX_POWER`, `API_URL` |
+
+### 11.2 组件结构
+
+```tsx
+// 1. 导入
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+
+// 2. 类型定义
+interface Props {
+  title: string
+}
+
+// 3. 常量定义
+const ITEMS = [...]
+
+// 4. 组件定义
+export default function Component({ title }: Props) {
+  // Hooks
+  const [state, setState] = useState()
+  
+  // 副作用
+  useEffect(() => {}, [])
+  
+  // 事件处理
+  const handleClick = () => {}
+  
+  // 渲染
+  return (
+    <div>
+      {/* JSX */}
+    </div>
+  )
+}
+```
+
+### 11.3 代码检查
+
+项目配置了 ESLint 和 TypeScript 严格模式：
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}
+```
+
+---
+
+## 12. 扩展指南
+
+### 12.1 添加新页面
+
+1. 在 `src/pages/` 创建页面组件
+2. 在 `App.tsx` 添加路由
+3. 在 `Navbar.tsx` 添加导航项（可选）
+
+### 12.2 添加新产品分类
+
+1. 在 `Products.tsx` 的 `categories` 数组添加分类
+2. 在 `products` 数组添加产品数据
+3. 更新 Footer 的产品链接
+
+### 12.3 添加新新闻分类
+
+1. 在 `News.tsx` 的 `categories` 数组添加分类
+2. 在 `newsItems` 数组添加新闻数据
+
+### 12.4 接入后端 API
+
+当前为静态数据展示，如需接入后端：
+
+1. 创建 API 服务层（如 `src/services/api.ts`）
+2. 使用 `fetch` 或 `axios` 请求数据
+3. 添加加载状态和错误处理
+4. 考虑使用 React Query 进行数据缓存
+
+---
+
+## 13. 常见问题
+
+### Q1: 如何修改品牌颜色？
+在 `tailwind.config.js` 中修改 `primary`、`ocean` 颜色配置。
+
+### Q2: 如何添加新图标？
+使用 `lucide-react` 库：
+```tsx
+import { IconName } from 'lucide-react'
+<IconName className="w-6 h-6" />
+```
+
+### Q3: 如何部署到其他平台？
+Vercel 配置可直接迁移到 Netlify、Cloudflare Pages 等平台，只需修改构建命令。
+
+### Q4: 如何添加国际支持（i18n）？
+推荐使用 `react-i18next` 库，将文本内容抽取到语言文件中。
+
+---
+
+## 14. 版本记录
+
+| 版本 | 日期 | 修改内容 |
 |------|------|----------|
-| **数据管理** | 所有数据硬编码在组件内 | 可抽取为独立数据文件或接入 CMS/Headless API |
-| **SEO** | 客户端渲染，搜索引擎可索引性有限 | 可引入 SSR（如 Next.js）或预渲染方案 |
-| **表单提交** | 模拟提交，无实际后端 | 接入表单服务（如 Formspree、自建 API） |
-| **地图展示** | 联系页地图为占位符 | 接入地图 SDK（如高德/腾讯地图） |
-| **图片资源** | 产品/新闻图片使用图标占位 | 补充实际产品图片和新闻配图 |
-| **国际化** | 仅支持中文 | 可引入 react-i18next 支持多语言 |
-| **无障碍** | 未系统处理 ARIA 属性 | 增加语义化标签和 ARIA 属性 |
+| 1.0.0 | 2026-05-06 | 初始版本，完成基础架构文档 |
+
+---
+
+> 文档由 AI 辅助生成，如有问题请联系开发团队。
