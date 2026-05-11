@@ -223,6 +223,7 @@ export default function Home() {
                   <img 
                     src={product.image} 
                     alt={product.title}
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-800/80 to-transparent z-10" />
