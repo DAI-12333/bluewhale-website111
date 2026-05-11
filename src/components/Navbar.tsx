@@ -70,7 +70,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 group">
               <img 
-                src="/1-Home Page/logo.png" 
+                src="/1-Home Page/logo.jpg" 
                 alt="蓝鲸动力" 
                 className="w-12 h-12 object-contain"
               />
