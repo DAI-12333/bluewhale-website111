@@ -53,7 +53,7 @@ ${formData.message}`;
     const mailtoLink = `mailto:2738208501@qq.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
     
     // 打开邮件客户端
-    const mailWindow = window.open(mailtoLink, '_blank');
+    void window.open(mailtoLink, '_blank');
     
     // 清空表单并显示成功
     setFormData({

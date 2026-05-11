@@ -5,7 +5,8 @@ import { ZoomIn, ZoomOut, Locate, MapPin } from 'lucide-react';
 const TENCENT_MAP_KEY = 'R6GBZ-4VDKH-AMAD3-W7EFY-UTKFJ-BBFTQ';
 
 // 全局状态：地图 SDK 是否已加载
-let isMapSDKLoaded = false;
+let _isMapSDKLoaded: boolean;
+let loadMapSDKPromise: Promise<void> | null = null;
 let loadMapSDKPromise: Promise<void> | null = null;
 
 interface TencentMapProps {
@@ -38,7 +39,7 @@ export default function TencentMap({
       script.src = `https://map.qq.com/api/gljs?v=1.exp&key=${TENCENT_MAP_KEY}`;
       script.async = true;
       script.onload = () => {
-        isMapSDKLoaded = true;
+        _isMapSDKLoaded = true;
         resolve();
       };
       script.onerror = () => {
