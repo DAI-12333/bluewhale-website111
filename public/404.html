@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+</head>
+<body>
+  <script type="text/javascript">
+    // Redirect to index.html for SPA routing
+    var path = window.location.pathname;
+    var search = window.location.search;
+    var hash = window.location.hash;
+    
+    // Use replaceState to change URL without reload
+    // Then let the SPA handle routing
+    window.location.replace('/' + (search ? '?' + search.substr(1) : '') + '#!' + path);
+  </script>
+</body>
+</html>
