@@ -30,7 +30,7 @@ export const applicationImages: Record<string, string> = {
   'transport-2': '/5-Application scenario/5-2-Unmanned aerial vehicle logistics delivery charging network.png',
   'ocean-1': '/5-Application scenario/5-3-Wireless Charging System for Offshore Photovoltaic Inspection Robots .jpg',
   'ocean-2': '/5-Application scenario/5-4-Underwater observation network AUV energy replenishment station.png',
-  'industry-1': '/5-Application scenario/5-5-Power system inspection unmanned aerial vehicle charging network.png',
+  'industry-1': '/5-Application scenario/5-5-Power system inspection unmanned aerial vehicle charging network.jpg',
   'industry-2': '/5-Application scenario/5-6-Intelligent Substation Inspection Robot Charging System.png',
 };
 
