@@ -29,7 +29,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-6">
               <img 
-                src="/logo.jpg" 
+                src="/logo.png" 
                 alt="蓝鲸动力" 
                 className="w-12 h-12 object-contain"
               />

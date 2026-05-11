@@ -5,7 +5,7 @@
 
 // 首页图片
 export const homeImages = {
-  logo: '/logo.jpg',
+  logo: '/logo.png',
 };
 
 // 产品图片 - 对应9个产品
