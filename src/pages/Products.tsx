@@ -280,7 +280,7 @@ export default function Products() {
               产品<span className="gradient-text">中心</span>
             </h1>
             <p className="text-xl text-gray-400 leading-relaxed">
-              全系列无线供电产品，功率覆盖500W至2kW，满足不同应用场景的能源补给需求
+              全系列无线供电产品，功率覆盖500W至10kW，满足不同应用场景的能源补给需求
             </p>
           </motion.div>
         </div>
