@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { Zap, Shield, Waves, Lock, CheckCircle, Award } from 'lucide-react';
+import { Zap, Shield, Waves, Lock, CheckCircle } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import { awardImages } from '../config/images';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -81,18 +82,21 @@ const awards = [
     level: '国家级',
     year: '2026',
     desc: '第二届全国博士后创新创业大赛创新赛金奖',
+    image: awardImages['1'],
   },
   {
-    title: '江苏省科技进步奖',
+    title: '陕西省科技工作者创新创业大赛',
     level: '省级',
     year: '2026',
-    desc: '无线供电技术创新应用奖项',
+    desc: '第二届陕西省科技工作者创新创业大赛获奖',
+    image: awardImages['2'],
   },
   {
-    title: '无锡市优秀创业企业',
-    level: '市级',
-    year: '2026',
-    desc: '无锡市优秀创业企业称号',
+    title: '中国发明协会二等奖',
+    level: '国家级',
+    year: '2025',
+    desc: '2025年中国发明协会发明创业奖二等奖',
+    image: awardImages['3'],
   },
 ];
 
@@ -222,15 +226,19 @@ export default function Technology() {
                 key={index}
                 {...fadeInUp}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="glass-card p-8 text-center hover-lift"
+                className="glass-card p-6 text-center hover-lift"
               >
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center mx-auto mb-6">
-                  <Award className="w-10 h-10 text-yellow-400" />
+                <div className="aspect-video relative overflow-hidden rounded-lg mb-4 bg-dark-700">
+                  <img 
+                    src={award.image} 
+                    alt={award.title}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <span className="inline-block px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 text-sm mb-4">
                   {award.level}
                 </span>
-                <h3 className="text-xl font-bold text-white mb-2">{award.title}</h3>
+                <h3 className="text-lg font-bold text-white mb-2">{award.title}</h3>
                 <p className="text-gray-400 text-sm mb-2">{award.desc}</p>
                 <span className="text-sm text-gray-500">{award.year}年</span>
               </motion.div>

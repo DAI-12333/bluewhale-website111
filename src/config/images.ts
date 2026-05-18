@@ -34,14 +34,27 @@ export const applicationImages: Record<string, string> = {
   'industry-2': '/5-Application scenario/5-6-Intelligent Substation Inspection Robot Charging System.jpg',
 };
 
+// 荣誉奖项图片
+export const awardImages: Record<string, string> = {
+  '1': '/3-Core technology/3-1-第二届全国博士后创新创业大赛金奖.jpg',
+  '2': '/3-Core technology/3-2-第二届陕西省科技工作者创新创业大赛.png',
+  '3': '/3-Core technology/3-3-2025年中国发明协会二等奖.png',
+};
+
 // 新闻动态配图
 export const newsImages: Record<string, string> = {
-  '1': '/6-News Updates/6-1-Blue Whale Power has won the gold award in the National Postdoctoral Innovation Competition.png',
+  '1': '/6-News Updates/6-1-Blue Whale Power has won the gold award in the National Postdoctoral Innovation Competition.jpg',
   '2': '/6-News Updates/6-2-The wireless charging system for offshore photovoltaic inspection robots has been successfully deployed.jpg',
   '3': '/6-News Updates/6-3-The application prospects of wireless power supply technology in the low-altitude economy sector.jpg',
   '4': '/6-News Updates/6-4-Blue Whale Power has launched a new generation of mobile charging robots.jpg',
   '5': '/6-News Updates/6-5-The company has signed a strategic cooperation agreement with a power group.jpg',
   '6': '/6-News Updates/6-6-Wireless power supply technology helps with unmanned operation of intelligent substations.jpg',
+};
+
+// 新闻视频
+export const newsVideos: Record<string, string> = {
+  '1': '/6-News Updates/6-1-视频.mp4',
+  '2': '/6-News Updates/6-2-视频.mp4',
 };
 
 // 占位图（图片加载失败时显示）
