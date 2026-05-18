@@ -24,52 +24,58 @@ export default function Contact() {
     message: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     
-    // 构建邮件内容
-    const subjectMap: Record<string, string> = {
-      product: '产品咨询',
-      technology: '技术合作',
-      business: '商务洽谈',
-      service: '售后服务',
-      other: '其他',
-    };
-    
-    const subject = subjectMap[formData.subject] || '其他';
-    const emailSubject = `蓝鲸动力官网咨询 - ${subject}`;
-    
-    const emailBody = `姓名: ${formData.name}
-公司: ${formData.company || '未填写'}
-邮箱: ${formData.email}
-电话: ${formData.phone || '未填写'}
-咨询类型: ${subject}
-
-留言内容:
-${formData.message}`;
-
-    // 使用 mailto 协议打开邮件客户端
-    const mailtoLink = `mailto:2738208501@qq.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-    
-    // 打开邮件客户端
-    void window.open(mailtoLink, '_blank');
-    
-    // 清空表单并显示成功
-    setFormData({
-      name: '',
-      company: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: '',
-    });
-    
-    setIsSubmitted(true);
-    
-    setTimeout(() => {
-      setIsSubmitted(false);
-    }, 5000);
+    try {
+      const subjectMap: Record<string, string> = {
+        product: '产品咨询',
+        technology: '技术合作',
+        business: '商务洽谈',
+        service: '售后服务',
+        other: '其他',
+      };
+      
+      const subject = subjectMap[formData.subject] || '其他';
+      
+      // 提交到 Netlify Forms
+      const formDataNetlify = new FormData();
+      formDataNetlify.append('form-name', 'contact');
+      formDataNetlify.append('name', formData.name);
+      formDataNetlify.append('company', formData.company);
+      formDataNetlify.append('email', formData.email);
+      formDataNetlify.append('phone', formData.phone);
+      formDataNetlify.append('subject', subject);
+      formDataNetlify.append('message', formData.message);
+      
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formDataNetlify as any).toString(),
+      });
+      
+      if (response.ok) {
+        setFormData({
+          name: '',
+          company: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: '',
+        });
+        setIsSubmitted(true);
+        setTimeout(() => setIsSubmitted(false), 5000);
+      } else {
+        alert('提交失败，请稍后重试或直接发送邮件至 2738208501@qq.com');
+      }
+    } catch (error) {
+      alert('提交失败，请稍后重试或直接发送邮件至 2738208501@qq.com');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -186,7 +192,14 @@ ${formData.message}`;
                     <p className="text-gray-400">感谢您的留言，我们将尽快与您联系！</p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form 
+                    name="contact" 
+                    method="POST" 
+                    data-netlify="true"
+                    onSubmit={handleSubmit} 
+                    className="space-y-5"
+                  >
+                    <input type="hidden" name="form-name" value="contact" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label className="block text-sm text-gray-400 mb-2">
@@ -290,10 +303,11 @@ ${formData.message}`;
 
                     <button
                       type="submit"
-                      className="btn-primary w-full flex items-center justify-center gap-2"
+                      disabled={isLoading}
+                      className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <Send className="w-5 h-5" />
-                      提交留言
+                      <Send className={`w-5 h-5 ${isLoading ? 'animate-pulse' : ''}`} />
+                      {isLoading ? '提交中...' : '提交留言'}
                     </button>
                   </form>
                 )}
