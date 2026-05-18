@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Tag, X } from 'lucide-react';
+import { Tag, X } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
 import { newsImages, newsVideos } from '../config/images';
 
@@ -218,10 +218,6 @@ export default function News() {
                     </div>
                   </div>
                   <div className="p-6">
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                      <Calendar className="w-4 h-4" />
-                      {news.date}
-                    </div>
                     <h3 className="text-lg font-bold text-white mb-3 group-hover:text-ocean-400 transition-colors line-clamp-2">
                       {news.title}
                     </h3>
@@ -267,10 +263,6 @@ export default function News() {
                   <span className="px-3 py-1 rounded-full bg-ocean-500/20 text-ocean-400 text-xs font-medium">
                     {selectedNews.category}
                   </span>
-                  <span className="text-sm text-gray-500 flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    {selectedNews.date}
-                  </span>
                 </div>
                 <button
                   onClick={() => setSelectedNews(null)}
@@ -293,7 +285,6 @@ export default function News() {
                         controls
                         autoPlay
                         loop
-                        muted
                         className={`w-full h-full object-contain ${selectedNews.id === '2' ? 'object-cover' : ''}`}
                       />
                     </div>
