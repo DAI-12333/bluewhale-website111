@@ -52,6 +52,26 @@ const newsItems: NewsItem[] = [
   },
   {
     id: '3',
+    title: '蓝鲸动力发布水下清洁机器人无线充电系统',
+    date: '2026-04',
+    category: '产品发布',
+    summary: '针对水下清洁机器人推出的无线充电系统，充电功率200W，实现全自动化能源补给。',
+    content: `无锡蓝鲸动力科技有限公司正式发布水下清洁机器人无线充电系统，该系统专为水下清洁机器人设计，充电功率达200W，可为水下清洁机器人提供安全、高效、便捷的能源补给服务。
+
+系统采用先进的磁耦合谐振技术，具有以下核心优势：
+
+1. 高效充电：200W充电功率，配合智能功率调节算法，可根据机器人电池状态自动调整充电参数，实现最快充电速度
+2. 安全可靠：非接触式充电方式，彻底消除水下拔插电源的安全隐患，系统具备过温保护、过流保护、过压保护等多重安全机制
+3. 防水耐用：整机IP68防水等级，采用高强度防腐材料制造，适用于各种水质环境，使用寿命长达5年以上
+4. 智能对接：支持±50mm水平偏移和±30mm垂直偏移的容错对接，机器人可在复杂水下环境中精准对接充电桩
+5. 远程监控：配备智能监控平台，可实时查看充电状态、设备健康度等数据，支持远程故障诊断和固件升级
+
+该系统可广泛应用于游泳池、景观水体、港口码头、水电站水库等场景的水下清洁机器人配套，帮助客户实现水下清洁作业的全自动化运维，大幅降低人工成本和停机时间。`,
+    tags: ['新产品', '水下清洁', '无线充电'],
+    video: newsVideos['3'],
+  },
+  {
+    id: '4',
     title: '无线供电技术在低空经济领域的应用前景',
     date: '2026-03',
     category: '行业资讯',
@@ -67,24 +87,6 @@ const newsItems: NewsItem[] = [
 
 公司正在与多家无人机物流企业开展合作，共同推进低空充电网络建设。预计未来几年，无线充电将成为无人机基础设施的重要组成部分。`,
     tags: ['低空经济', '无人机', '行业趋势'],
-  },
-  {
-    id: '4',
-    title: '蓝鲸动力发布新一代移动式充电机器人',
-    date: '2026-02',
-    category: '产品发布',
-    summary: 'MR-2000移动式充电机器人正式发布，支持2kW功率输出。',
-    content: `无锡蓝鲸动力科技有限公司正式发布新一代移动式充电机器人MR-2000。该产品最大功率输出达2kW，采用先进的无线供电技术，为多种移动装备提供灵活的补能服务。
-
-MR-2000采用SLAM+视觉+RTK多传感器融合导航技术，可在复杂环境下自主规划路径。产品主要特点包括：
-
-1. 高效充电：2kW输出，满足多种装备补能需求
-2. 智能导航：多传感器融合，厘米级定位精度
-3. 集群协同：支持多台设备协同作业，提升充电效率
-4. 全天候作业：-30℃~+70℃宽温工作，适应各种环境
-
-该产品可广泛应用于工业现场、应急抢险、大型活动保障等场景，为移动装备提供"送电上门"服务。`,
-    tags: ['新产品', '充电机器人', '智能'],
   },
   {
     id: '5',
@@ -280,33 +282,39 @@ export default function News() {
 
               <div className="p-6">
                 <h2 className="text-2xl font-bold text-white mb-6">{selectedNews.title}</h2>
-                {/* Video Player */}
-                {selectedNews.video && (
-                  <div className="aspect-video rounded-lg overflow-hidden mb-6 bg-dark-700">
-                    <video
-                      ref={videoRef}
-                      src={selectedNews.video}
-                      controls
-                      autoPlay
-                      loop
-                      muted
-                      className="w-full h-full object-contain"
-                    />
+                {/* Content with video on left for vertical video (id=2) */}
+                <div className={selectedNews.video ? (selectedNews.id === '2' ? 'flex flex-col md:flex-row gap-6' : '') : ''}>
+                  {/* Video Player - Left side for vertical video */}
+                  {selectedNews.video && (
+                    <div className={`rounded-lg overflow-hidden bg-dark-700 ${selectedNews.id === '2' ? 'md:w-1/3 aspect-[9/16] md:aspect-auto' : 'aspect-video mb-6'}`}>
+                      <video
+                        ref={videoRef}
+                        src={selectedNews.video}
+                        controls
+                        autoPlay
+                        loop
+                        muted
+                        className={`w-full h-full object-contain ${selectedNews.id === '2' ? 'object-cover' : ''}`}
+                      />
+                    </div>
+                  )}
+                  {/* Content - Right side for vertical video */}
+                  <div className={selectedNews.id === '2' ? 'md:w-2/3' : ''}>
+                    <div className="prose prose-invert max-w-none">
+                      {selectedNews.content.split('\n\n').map((paragraph, i) => (
+                        <p key={i} className="text-gray-400 leading-relaxed mb-4">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap gap-2 mt-6 pt-6 border-t border-white/10">
+                      {selectedNews.tags.map((tag, i) => (
+                        <span key={i} className="px-3 py-1 rounded-full bg-dark-700 text-gray-400 text-sm">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                )}
-                <div className="prose prose-invert max-w-none">
-                  {selectedNews.content.split('\n\n').map((paragraph, i) => (
-                    <p key={i} className="text-gray-400 leading-relaxed mb-4">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-                <div className="flex flex-wrap gap-2 mt-6 pt-6 border-t border-white/10">
-                  {selectedNews.tags.map((tag, i) => (
-                    <span key={i} className="px-3 py-1 rounded-full bg-dark-700 text-gray-400 text-sm">
-                      {tag}
-                    </span>
-                  ))}
                 </div>
               </div>
             </motion.div>

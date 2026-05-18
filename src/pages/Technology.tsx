@@ -239,8 +239,7 @@ export default function Technology() {
                   {award.level}
                 </span>
                 <h3 className="text-lg font-bold text-white mb-2">{award.title}</h3>
-                <p className="text-gray-400 text-sm mb-2">{award.desc}</p>
-                <span className="text-sm text-gray-500">{award.year}年</span>
+                <p className="text-gray-400 text-sm">{award.desc}</p>
               </motion.div>
             ))}
           </div>
