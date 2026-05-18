@@ -40,21 +40,32 @@ export default function Contact() {
       };
       
       const subject = subjectMap[formData.subject] || '其他';
+      const emailSubject = `蓝鲸动力官网咨询 - ${subject}`;
       
-      // 提交到 Netlify Forms
-      const formDataNetlify = new FormData();
-      formDataNetlify.append('form-name', 'contact');
-      formDataNetlify.append('name', formData.name);
-      formDataNetlify.append('company', formData.company);
-      formDataNetlify.append('email', formData.email);
-      formDataNetlify.append('phone', formData.phone);
-      formDataNetlify.append('subject', subject);
-      formDataNetlify.append('message', formData.message);
-      
-      const response = await fetch('/', {
+      // 使用 Web3Forms API 发送邮件
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formDataNetlify as any).toString(),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: '1cf01452-747f-4868-962f-644b3161f763',
+          subject: emailSubject,
+          to_email: '2738208501@qq.com',
+          name: formData.name,
+          email: formData.email,
+          company: formData.company || '未填写',
+          phone: formData.phone || '未填写',
+          subject_type: subject,
+          message: `【姓名】: ${formData.name}
+【公司】: ${formData.company || '未填写'}
+【邮箱】: ${formData.email}
+【电话】: ${formData.phone || '未填写'}
+【咨询类型】: ${subject}
+
+【留言内容】:
+${formData.message}`,
+        }),
       });
       
       if (response.ok) {
@@ -193,13 +204,9 @@ export default function Contact() {
                   </motion.div>
                 ) : (
                   <form 
-                    name="contact" 
-                    method="POST" 
-                    data-netlify="true"
                     onSubmit={handleSubmit} 
                     className="space-y-5"
                   >
-                    <input type="hidden" name="form-name" value="contact" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label className="block text-sm text-gray-400 mb-2">
