@@ -2,6 +2,17 @@
   command = "npm run build"
   publish = "dist"
 
+# 百度验证文件 - 直接服务，不经过SPA重定向
+[[headers]]
+  for = "/baidu_verify_*.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[redirects]]
+  from = "/baidu_verify_*.html"
+  status = 200
+  force = false
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
