@@ -2,18 +2,9 @@
   command = "npm run build"
   publish = "dist"
 
-# 百度验证文件 - 直接服务，不经过SPA重定向
-[[headers]]
-  for = "/baidu_verify_*.html"
-  [headers.values]
-    Cache-Control = "no-cache"
-
-[[redirects]]
-  from = "/baidu_verify_*.html"
-  status = 200
-  force = false
-
+# SPA 重定向 - 所有路径都交给 index.html 处理
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  conditions = {Language = ["en"], Runtime = ["SSG"]}
