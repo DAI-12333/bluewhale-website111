@@ -6,6 +6,7 @@ import {
   Maximize2, CheckCircle
 } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import { fadeInOnMount } from '../components/motionPresets';
 import { productImages } from '../config/images';
 
 interface Product {
@@ -20,81 +21,6 @@ interface Product {
 }
 
 const products: Product[] = [
-  {
-    id: 'land-1',
-    name: 'LW-500 陆上无线充电桩',
-    category: 'land',
-    power: '500W',
-    description: '适用于小型无人机、巡检机器人的入门级无线充电设备，部署灵活，性价比高。',
-    features: [
-      '一体式设计，即装即用',
-      '支持50-100mm充电距离',
-      'IP65防护等级',
-      '实时充电状态监测',
-    ],
-    specs: {
-      '输出功率': '500W',
-      '输入电压': 'AC 220V±10%',
-      '输出电压': 'DC 24V/48V',
-      '充电距离': '50-100mm',
-      '传输效率': '≥90%',
-      '工作温度': '-20℃~+60℃',
-      '防护等级': 'IP65',
-      '尺寸': '300×300×150mm',
-      '重量': '8kg',
-    },
-    applications: ['小型无人机', '室内巡检机器人', 'AGV小车'],
-  },
-  {
-    id: 'land-2',
-    name: 'LW-2000 陆上无线充电桩',
-    category: 'land',
-    power: '2kW',
-    description: '中型无人机、户外巡检机器人的主力充电设备，支持更远的充电距离和更高的功率输出。',
-    features: [
-      '强兼容抗偏移设计',
-      '支持100-200mm充电距离',
-      '智能功率调节',
-      '远程监控与管理',
-    ],
-    specs: {
-      '输出功率': '2kW',
-      '输入电压': 'AC 220V±10%',
-      '输出电压': 'DC 48V/96V',
-      '充电距离': '100-200mm',
-      '传输效率': '≥92%',
-      '工作温度': '-30℃~+70℃',
-      '防护等级': 'IP66',
-      '尺寸': '450×450×200mm',
-      '重量': '18kg',
-    },
-    applications: ['中型无人机', '户外巡检机器人', '物流机器人'],
-  },
-  {
-    id: 'land-3',
-    name: 'LW-5000 陆上无线充电桩',
-    category: 'land',
-    power: '5kW',
-    description: '大功率陆上无线充电设备，适用于大型无人机、特种机器人等高功率需求场景。',
-    features: [
-      '宽功率覆盖设计',
-      '多设备并行充电',
-      '环境自适应调节',
-      '故障自诊断功能',
-    ],
-    specs: {
-      '输出功率': '5kW',
-      '输入电压': 'AC 380V±10%',
-      '输出电压': 'DC 96V/384V',
-      '充电距离': '100-200mm',
-      '传输效率': '≥93%',
-      '工作温度': '-40℃~+85℃',
-      '防护等级': 'IP66',
-      '尺寸': '600×600×250mm',
-      '重量': '35kg',
-    },
-    applications: ['大型无人机', '特种机器人', '电动车辆'],
-  },
   {
     id: 'sea-1',
     name: 'SW-1000 海下无线充电桩',
@@ -169,6 +95,81 @@ const products: Product[] = [
       '重量': '65kg',
     },
     applications: ['海上光伏巡检机器人', '大型AUV', '海洋工程装备'],
+  },
+  {
+    id: 'land-1',
+    name: 'LW-500 陆上无线充电桩',
+    category: 'land',
+    power: '500W',
+    description: '适用于小型无人机、巡检机器人的入门级无线充电设备，部署灵活，性价比高。',
+    features: [
+      '一体式设计，即装即用',
+      '支持50-100mm充电距离',
+      'IP65防护等级',
+      '实时充电状态监测',
+    ],
+    specs: {
+      '输出功率': '500W',
+      '输入电压': 'AC 220V±10%',
+      '输出电压': 'DC 24V/48V',
+      '充电距离': '50-100mm',
+      '传输效率': '≥90%',
+      '工作温度': '-20℃~+60℃',
+      '防护等级': 'IP65',
+      '尺寸': '300×300×150mm',
+      '重量': '8kg',
+    },
+    applications: ['小型无人机', '室内巡检机器人', 'AGV小车'],
+  },
+  {
+    id: 'land-2',
+    name: 'LW-2000 陆上无线充电桩',
+    category: 'land',
+    power: '2kW',
+    description: '中型无人机、户外巡检机器人的主力充电设备，支持更远的充电距离和更高的功率输出。',
+    features: [
+      '强兼容抗偏移设计',
+      '支持100-200mm充电距离',
+      '智能功率调节',
+      '远程监控与管理',
+    ],
+    specs: {
+      '输出功率': '2kW',
+      '输入电压': 'AC 220V±10%',
+      '输出电压': 'DC 48V/96V',
+      '充电距离': '100-200mm',
+      '传输效率': '≥92%',
+      '工作温度': '-30℃~+70℃',
+      '防护等级': 'IP66',
+      '尺寸': '450×450×200mm',
+      '重量': '18kg',
+    },
+    applications: ['中型无人机', '户外巡检机器人', '物流机器人'],
+  },
+  {
+    id: 'land-3',
+    name: 'LW-5000 陆上无线充电桩',
+    category: 'land',
+    power: '5kW',
+    description: '大功率陆上无线充电设备，适用于大型无人机、特种机器人等高功率需求场景。',
+    features: [
+      '宽功率覆盖设计',
+      '多设备并行充电',
+      '环境自适应调节',
+      '故障自诊断功能',
+    ],
+    specs: {
+      '输出功率': '5kW',
+      '输入电压': 'AC 380V±10%',
+      '输出电压': 'DC 96V/384V',
+      '充电距离': '100-200mm',
+      '传输效率': '≥93%',
+      '工作温度': '-40℃~+85℃',
+      '防护等级': 'IP66',
+      '尺寸': '600×600×250mm',
+      '重量': '35kg',
+    },
+    applications: ['大型无人机', '特种机器人', '电动车辆'],
   },
   {
     id: 'mobile-1',
@@ -249,8 +250,8 @@ const products: Product[] = [
 
 const categories = [
   { id: 'all', label: '全部产品', icon: Zap },
-  { id: 'land', label: '陆上无线充电桩', icon: Shield },
   { id: 'sea', label: '海下无线充电桩', icon: Waves },
+  { id: 'land', label: '陆上无线充电桩', icon: Shield },
   { id: 'mobile', label: '移动式充电机器人', icon: Gauge },
 ];
 
@@ -271,9 +272,7 @@ export default function Products() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark-800/50 to-dark-900" />
         <div className="relative section-container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeInOnMount}
             className="max-w-4xl"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -317,10 +316,10 @@ export default function Products() {
                 <motion.div
                   key={product.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, delay: index * 0.05 }}
                   className="glass-card overflow-hidden hover-lift cursor-pointer group"
                   onClick={() => setSelectedProduct(product)}
                 >

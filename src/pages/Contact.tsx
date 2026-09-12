@@ -5,14 +5,9 @@ import {
   MessageSquare, User, Building, FileText
 } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import SectionHeader from '../components/SectionHeader';
+import { fadeIn, fadeInOnMount } from '../components/motionPresets';
 import TencentMap from '../components/TencentMap';
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-50px' },
-  transition: { duration: 0.6 }
-};
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -103,16 +98,14 @@ ${formData.message}`,
         <div className="absolute inset-0 bg-gradient-to-b from-dark-800/50 to-dark-900" />
         <div className="relative section-container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeInOnMount}
             className="max-w-4xl"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               联系<span className="gradient-text">我们</span>
             </h1>
             <p className="text-xl text-gray-400 leading-relaxed">
-              无论您有任何产品咨询、技术合作或商务洽谈需求，欢迎随时与我们联系
+              无论您有产品咨询、技术合作还是商务洽谈需求，欢迎随时与我们联系
             </p>
           </motion.div>
         </div>
@@ -123,13 +116,13 @@ ${formData.message}`,
         <div className="section-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Info */}
-            <motion.div {...fadeInUp} className="space-y-8">
-              <div>
-                <h2 className="text-3xl font-bold text-white mb-6">联系方式</h2>
-                <p className="text-gray-400 leading-relaxed">
-                  我们的专业团队将竭诚为您服务，提供及时、专业的咨询与支持。
-                </p>
-              </div>
+            <motion.div {...fadeIn} className="space-y-8">
+              <SectionHeader
+                align="left"
+                eyebrow="Get in Touch"
+                title="联系方式"
+                description="我们的专业团队将竭诚为您服务，提供及时、专业的咨询与支持。"
+              />
 
               <div className="space-y-6">
                 {[
@@ -160,8 +153,8 @@ ${formData.message}`,
                 ].map((item, index) => (
                   <motion.div
                     key={index}
-                    {...fadeInUp}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    {...fadeIn}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
                     className="flex items-start gap-4"
                   >
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500/20 to-ocean-500/20 flex items-center justify-center shrink-0">
@@ -186,8 +179,8 @@ ${formData.message}`,
 
             {/* Contact Form */}
             <motion.div
-              {...fadeInUp}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              {...fadeIn}
+              transition={{ duration: 0.4, delay: 0.2 }}
             >
               <div className="glass-card p-8">
                 <h2 className="text-2xl font-bold text-white mb-6">在线咨询</h2>
@@ -327,9 +320,12 @@ ${formData.message}`,
       {/* FAQ */}
       <section className="section-padding bg-dark-800/30">
         <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">常见问题</h2>
-            <p className="text-gray-400">解答您最关心的问题</p>
+          <motion.div {...fadeIn} className="mb-16">
+            <SectionHeader
+              eyebrow="FAQ"
+              title="常见问题"
+              description="解答您最关心的问题"
+            />
           </motion.div>
 
           <div className="max-w-3xl mx-auto space-y-4">
@@ -357,8 +353,8 @@ ${formData.message}`,
             ].map((faq, index) => (
               <motion.div
                 key={index}
-                {...fadeInUp}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                {...fadeIn}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
                 className="glass-card p-6"
               >
                 <h3 className="text-lg font-semibold text-white mb-3 flex items-start gap-3">

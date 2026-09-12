@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Tag, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import { fadeInOnMount } from '../components/motionPresets';
 import { newsImages, newsVideos } from '../config/images';
 
 interface NewsItem {
@@ -21,12 +22,12 @@ const newsItems: NewsItem[] = [
     title: '荣获全国博士后创新创业大赛金奖',
     date: '2023-10',
     category: '公司新闻',
-    summary: '在第二届全国博士后创新创业大赛中，我司凭借海下无线供电技术荣获创新赛金奖。',
-    content: `在第二届全国博士后创新创业大赛中，无锡蓝鲸动力科技有限公司凭借"海下无线供电系统"项目，从全国数千个参赛项目中脱颖而出，荣获创新赛金奖。
+    summary: '在第二届全国博士后创新创业大赛中，公司核心团队凭借海下无线供电技术荣获创新赛金奖。',
+    content: `在第二届全国博士后创新创业大赛中，公司核心团队凭借"海下无线供电系统"项目，从全国数千个参赛项目中脱颖而出，荣获创新赛金奖。
 
 该项目针对海洋工程领域移动装备供电难题，创新性地提出了深海环境下高效无线电能传输解决方案。系统可在300米水深环境下稳定工作，传输效率达到90%以上，填补了国内该领域的技术空白。
 
-大赛评委认为，该项目技术先进、应用前景广阔，对于推动我国海洋工程装备智能化发展具有重要意义。此次获奖是对蓝鲸动力技术实力的充分肯定，也是公司发展历程中的重要里程碑。
+大赛评委认为，该项目技术先进、应用前景广阔，对于推动我国海洋工程装备智能化发展具有重要意义。此次获奖是对蓝鲸动力核心团队技术实力的充分肯定，也是公司发展历程中的重要里程碑。
 
 未来，蓝鲸动力将继续加大研发投入，推动海下无线供电技术的产业化应用，为我国海洋强国建设贡献力量。`,
     tags: ['获奖', '海洋工程', '技术创新'],
@@ -36,7 +37,7 @@ const newsItems: NewsItem[] = [
     id: '2',
     title: '海上光伏巡检机器人无线充电系统成功部署',
     date: '2026-03',
-    category: '项目动态',
+    category: '公司新闻',
     summary: '我司为某海上光伏电站提供的巡检机器人无线充电系统正式投入运营。',
     content: `近日，无锡蓝鲸动力科技有限公司为某海上光伏电站提供的巡检机器人无线充电系统正式投入商业运营。该系统采用我司自主研发的SW-10000海下无线充电桩，可为海上光伏巡检机器人提供全天候、全自动的能源补给服务。
 
@@ -109,7 +110,7 @@ const newsItems: NewsItem[] = [
     id: '6',
     title: '无线供电技术助力智能变电站无人化运维',
     date: '2026-01',
-    category: '技术动态',
+    category: '行业资讯',
     summary: '我司无线供电技术在智能变电站巡检机器人中的应用案例分享。',
     content: `智能变电站是电网发展的重要方向，而巡检机器人是实现变电站无人化运维的关键装备。然而，传统有线充电方式在变电站强电磁环境下可靠性差，严重影响机器人作业效率。
 
@@ -125,7 +126,7 @@ const newsItems: NewsItem[] = [
   },
 ];
 
-const categories = ['全部', '公司新闻', '项目动态', '行业资讯', '产品发布', '技术动态'];
+const categories = ['全部', '公司新闻', '产品发布', '行业资讯'];
 
 export default function News() {
   const [activeCategory, setActiveCategory] = useState('全部');
@@ -151,9 +152,7 @@ export default function News() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark-800/50 to-dark-900" />
         <div className="relative section-container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeInOnMount}
             className="max-w-4xl"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -196,10 +195,10 @@ export default function News() {
                 <motion.article
                   key={news.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, delay: index * 0.05 }}
                   className="glass-card overflow-hidden hover-lift cursor-pointer group"
                   onClick={() => setSelectedNews(news)}
                 >
@@ -221,15 +220,7 @@ export default function News() {
                     <h3 className="text-lg font-bold text-white mb-3 group-hover:text-ocean-400 transition-colors line-clamp-2">
                       {news.title}
                     </h3>
-                    <p className="text-gray-400 text-sm line-clamp-3 mb-4">{news.summary}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {news.tags.map((tag, i) => (
-                        <span key={i} className="flex items-center gap-1 text-xs text-gray-500">
-                          <Tag className="w-3 h-3" />
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="text-gray-400 text-sm line-clamp-3">{news.summary}</p>
                   </div>
                 </motion.article>
               ))}

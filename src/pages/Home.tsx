@@ -5,30 +5,12 @@ import {
   Award, TrendingUp, Users, Globe
 } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import SectionHeader from '../components/SectionHeader';
+import { fadeIn, fadeInOnMount } from '../components/motionPresets';
 import { productImages } from '../config/images';
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
-};
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-50px' },
-  transition: { duration: 0.6 }
-};
-
-const staggerContainer = {
-  initial: {},
-  whileInView: {},
-  viewport: { once: true, margin: '-50px' }
-};
-
-const staggerItem = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5 }
 };
 
 export default function Home() {
@@ -45,11 +27,7 @@ export default function Home() {
 
         <div className="relative section-container pt-20">
           <div className="max-w-5xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
+            <motion.div {...fadeInOnMount}>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-ocean-500/10 border border-ocean-500/20 text-ocean-400 text-sm mb-8">
                 <Zap className="w-4 h-4" />
                 <span>移动装备无线供电系统专家</span>
@@ -62,7 +40,7 @@ export default function Home() {
 
               <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
                 无锡蓝鲸动力科技有限公司专注于水下机器人、无人机等移动装备的无线供电系统研发与制造，
-                提供"发电-输电-供电"全场景一体化解决方案
+                提供"电能变换-无线传输-智能供电"全场景一体化解决方案
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -78,9 +56,7 @@ export default function Home() {
 
             {/* Stats */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              {...fadeInOnMount}
               className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20"
             >
               {[
@@ -91,7 +67,7 @@ export default function Home() {
               ].map((stat, index) => (
                 <div key={index} className="glass-card p-6 hover-lift">
                   <stat.icon className="w-8 h-8 text-ocean-400 mx-auto mb-3" />
-                  <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
+                  <div className="text-3xl md:text-4xl font-bold gradient-text mb-1">{stat.value}</div>
                   <div className="text-sm text-gray-400">{stat.label}</div>
                 </div>
               ))}
@@ -119,17 +95,15 @@ export default function Home() {
       {/* Core Advantages */}
       <section className="section-padding bg-dark-800/50">
         <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">核心优势</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              以创新技术驱动，解决移动装备续航短、供电难、维护成本高的行业痛点
-            </p>
+          <motion.div {...fadeIn} className="mb-16">
+            <SectionHeader
+              eyebrow="Core Advantages"
+              title="核心优势"
+              description="以创新技术驱动，解决移动装备续航短、供电难、维护成本高的行业痛点"
+            />
           </motion.div>
 
-          <motion.div
-            {...staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 icon: Zap,
@@ -154,7 +128,7 @@ export default function Home() {
               {
                 icon: TrendingUp,
                 title: '一体式设计',
-                desc: '集成发电、输电、供电功能于一体，模块化设计便于部署，大幅降低安装维护成本',
+                desc: '集成电能变换、无线传输、智能供电功能于一体，模块化设计便于部署，大幅降低安装维护成本',
               },
               {
                 icon: Award,
@@ -164,8 +138,8 @@ export default function Home() {
             ].map((item, index) => (
               <motion.div
                 key={index}
-                {...staggerItem}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                {...fadeIn}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
                 className="glass-card p-8 hover-lift group"
               >
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-500/20 to-ocean-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -175,35 +149,36 @@ export default function Home() {
                 <p className="text-gray-400 leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Products Overview */}
       <section className="section-padding">
         <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">产品中心</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              全系列无线供电产品，为不同应用场景提供专业解决方案
-            </p>
+          <motion.div {...fadeIn} className="mb-16">
+            <SectionHeader
+              eyebrow="Products"
+              title="产品中心"
+              description="全系列无线供电产品，为不同应用场景提供专业解决方案"
+            />
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {[
-              {
-                title: '陆上无线充电桩',
-                desc: '适用于无人机、AGV、巡检机器人等陆地移动装备的无线充电',
-                specs: ['功率范围: 500W-5kW', '充电距离: 50-200mm', '防护等级: IP65'],
-                image: productImages['land-3'],
-                link: '/products?category=land',
-              },
               {
                 title: '海下无线充电桩',
                 desc: '专为水下机器人、AUV等海洋装备设计，支持深海作业环境',
                 specs: ['功率范围: 1kW-10kW', '工作水深: 0-300m', '防护等级: IP68'],
                 image: productImages['sea-3'],
                 link: '/products?category=sea',
+              },
+              {
+                title: '陆上无线充电桩',
+                desc: '适用于无人机、AGV、巡检机器人等陆地移动装备的无线充电',
+                specs: ['功率范围: 500W-5kW', '充电距离: 50-200mm', '防护等级: IP65'],
+                image: productImages['land-3'],
+                link: '/products?category=land',
               },
               {
                 title: '移动式充电机器人',
@@ -215,8 +190,8 @@ export default function Home() {
             ].map((product, index) => (
               <motion.div
                 key={index}
-                {...fadeInUp}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
+                {...fadeIn}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="glass-card overflow-hidden hover-lift group"
               >
                 <div className="aspect-video relative overflow-hidden">
@@ -259,21 +234,16 @@ export default function Home() {
       {/* Applications */}
       <section className="section-padding bg-dark-800/50">
         <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">应用场景</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              深耕交通运输、海洋工程、工业民生三大领域，为行业客户提供专业解决方案
-            </p>
+          <motion.div {...fadeIn} className="mb-16">
+            <SectionHeader
+              eyebrow="Applications"
+              title="应用场景"
+              description="深耕交通运输、海洋工程、工业民生三大领域，为行业客户提供专业解决方案"
+            />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              {
-                title: '交通运输',
-                desc: '为电动车辆、无人机等提供高效无线充电，推动绿色交通发展',
-                icon: Zap,
-                link: '/applications?field=transport',
-              },
               {
                 title: '海洋工程',
                 desc: '为海上光伏巡检机器人、水下机器人等提供可靠能源保障',
@@ -286,11 +256,17 @@ export default function Home() {
                 icon: Gauge,
                 link: '/applications?field=industry',
               },
+              {
+                title: '交通运输',
+                desc: '为电动车辆、无人机等提供高效无线充电，推动绿色交通发展',
+                icon: Zap,
+                link: '/applications?field=transport',
+              },
             ].map((app, index) => (
               <motion.div
                 key={index}
-                {...fadeInUp}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
+                {...fadeIn}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 <Link to={app.link} className="glass-card p-8 hover-lift block h-full group">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500/20 to-ocean-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -312,11 +288,13 @@ export default function Home() {
       {/* News Preview */}
       <section className="section-padding">
         <div className="section-container">
-          <motion.div {...fadeInUp} className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">新闻动态</h2>
-              <p className="text-gray-400">了解公司最新动态与行业资讯</p>
-            </div>
+          <motion.div {...fadeIn} className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <SectionHeader
+              align="left"
+              eyebrow="News"
+              title="新闻动态"
+              description="了解公司最新动态与行业资讯"
+            />
             <Link
               to="/news"
               className="inline-flex items-center gap-2 text-ocean-400 hover:text-ocean-300 font-medium mt-4 md:mt-0"
@@ -332,12 +310,12 @@ export default function Home() {
                 title: '荣获全国博士后创新创业大赛金奖',
                 date: '2023-10',
                 category: '公司新闻',
-                desc: '在第二届全国博士后创新创业大赛中，我司凭借海下无线供电技术荣获创新赛金奖',
+                desc: '在第二届全国博士后创新创业大赛中，公司核心团队凭借海下无线供电技术荣获创新赛金奖',
               },
               {
                 title: '海上光伏巡检机器人无线充电系统成功部署',
                 date: '2026-03',
-                category: '项目动态',
+                category: '公司新闻',
                 desc: '我司为某海上光伏电站提供的巡检机器人无线充电系统正式投入运营',
               },
               {
@@ -349,8 +327,8 @@ export default function Home() {
             ].map((news, index) => (
               <motion.article
                 key={index}
-                {...fadeInUp}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                {...fadeIn}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
                 className="glass-card p-6 hover-lift cursor-pointer group"
               >
                 <div className="flex items-center gap-3 mb-4">
@@ -373,7 +351,7 @@ export default function Home() {
       <section className="section-padding bg-gradient-to-b from-dark-800/50 to-dark-900">
         <div className="section-container">
           <motion.div
-            {...fadeInUp}
+            {...fadeIn}
             className="glass-card p-10 md:p-16 text-center relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-600/10 rounded-full blur-3xl" />

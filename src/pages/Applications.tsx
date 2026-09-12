@@ -6,6 +6,7 @@ import {
   Truck, Ship, Factory
 } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import { fadeInOnMount } from '../components/motionPresets';
 import { applicationImages } from '../config/images';
 
 interface CaseStudy {
@@ -20,26 +21,6 @@ interface CaseStudy {
 }
 
 const caseStudies: CaseStudy[] = [
-  {
-    id: 'transport-1',
-    title: '智慧物流园区AGV无线充电系统',
-    field: 'transport',
-    description: '为某大型物流园区提供AGV小车无线充电解决方案，实现24小时不间断作业。',
-    challenge: '传统接触式充电需要AGV精确停靠，影响作业效率；充电触点磨损严重，维护成本高。',
-    solution: '部署LW-2000陆上无线充电桩，采用抗偏移设计，支持±150mm对准容错，AGV无需精确停靠即可充电。',
-    result: '充电效率提升40%，设备维护成本降低60%，AGV可用率达到99.5%。',
-    features: ['24小时无人值守', '多设备并行充电', '智能调度管理', '实时状态监控'],
-  },
-  {
-    id: 'transport-2',
-    title: '无人机物流配送充电网络',
-    field: 'transport',
-    description: '为城市无人机物流配送系统建设分布式充电网络，支持多机型、多批次快速补能。',
-    challenge: '无人机续航时间短，需要频繁充电；不同机型充电接口不统一，兼容性差。',
-    solution: '建设LW-500/LW-2000混合充电站网络，采用标准化无线充电接口，支持多机型自动识别。',
-    result: '无人机日均配送次数提升3倍，充电等待时间缩短至5分钟以内。',
-    features: ['多机型兼容', '5分钟快速补能', '分布式部署', '云端统一管理'],
-  },
   {
     id: 'ocean-1',
     title: '海上光伏巡检机器人无线充电系统',
@@ -80,13 +61,33 @@ const caseStudies: CaseStudy[] = [
     result: '变电站实现完全无人化巡检，设备异常发现率提升至99%，运维成本降低50%。',
     features: ['强电磁兼容', '24小时待命', '异常自动报警', '无人化运维'],
   },
+  {
+    id: 'transport-1',
+    title: '智慧物流园区AGV无线充电系统',
+    field: 'transport',
+    description: '为某大型物流园区提供AGV小车无线充电解决方案，实现24小时不间断作业。',
+    challenge: '传统接触式充电需要AGV精确停靠，影响作业效率；充电触点磨损严重，维护成本高。',
+    solution: '部署LW-2000陆上无线充电桩，采用抗偏移设计，支持±150mm对准容错，AGV无需精确停靠即可充电。',
+    result: '充电效率提升40%，设备维护成本降低60%，AGV可用率达到99.5%。',
+    features: ['24小时无人值守', '多设备并行充电', '智能调度管理', '实时状态监控'],
+  },
+  {
+    id: 'transport-2',
+    title: '无人机物流配送充电网络',
+    field: 'transport',
+    description: '为城市无人机物流配送系统建设分布式充电网络，支持多机型、多批次快速补能。',
+    challenge: '无人机续航时间短，需要频繁充电；不同机型充电接口不统一，兼容性差。',
+    solution: '建设LW-500/LW-2000混合充电站网络，采用标准化无线充电接口，支持多机型自动识别。',
+    result: '无人机日均配送次数提升3倍，充电等待时间缩短至5分钟以内。',
+    features: ['多机型兼容', '5分钟快速补能', '分布式部署', '云端统一管理'],
+  },
 ];
 
 const fields = [
   { id: 'all', label: '全部场景', icon: Zap },
-  { id: 'transport', label: '交通运输', icon: Truck },
   { id: 'ocean', label: '海洋工程', icon: Ship },
   { id: 'industry', label: '工业与民生', icon: Factory },
+  { id: 'transport', label: '交通运输', icon: Truck },
 ];
 
 export default function Applications() {
@@ -106,9 +107,7 @@ export default function Applications() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark-800/50 to-dark-900" />
         <div className="relative section-container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeInOnMount}
             className="max-w-4xl"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -152,10 +151,10 @@ export default function Applications() {
                 <motion.div
                   key={caseItem.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, delay: index * 0.05 }}
                   className="glass-card overflow-hidden hover-lift cursor-pointer group"
                   onClick={() => setSelectedCase(caseItem)}
                 >

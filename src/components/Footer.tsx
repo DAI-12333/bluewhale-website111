@@ -3,14 +3,14 @@ import { MapPin, Phone, Mail, Clock, ExternalLink } from 'lucide-react';
 
 const footerLinks = {
   products: [
-    { label: '陆上无线充电桩', path: '/products?category=land' },
     { label: '海下无线充电桩', path: '/products?category=sea' },
+    { label: '陆上无线充电桩', path: '/products?category=land' },
     { label: '移动式充电机器人', path: '/products?category=mobile' },
   ],
   applications: [
-    { label: '交通运输', path: '/applications?field=transport' },
     { label: '海洋工程', path: '/applications?field=ocean' },
     { label: '工业与民生', path: '/applications?field=industry' },
+    { label: '交通运输', path: '/applications?field=transport' },
   ],
   company: [
     { label: '关于我们', path: '/about' },
@@ -24,9 +24,9 @@ export default function Footer() {
   return (
     <footer className="bg-dark-900 border-t border-white/5">
       <div className="section-container section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr_1fr] gap-x-8 gap-y-12 lg:gap-x-12">
           {/* Company Info */}
-          <div className="lg:col-span-1">
+          <div>
             <Link to="/" className="flex items-center gap-3 mb-6">
               <img 
                 src="/logo.png" 
@@ -38,9 +38,6 @@ export default function Footer() {
                 <p className="text-[10px] text-ocean-400">BLUEWHALE POWER</p>
               </div>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              专注于移动装备无线供电系统的研发与制造，为水下机器人、无人机等装备提供全天候、全自动能源补给保障。
-            </p>
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-sm text-gray-400">
                 <MapPin className="w-4 h-4 mt-0.5 text-ocean-400 shrink-0" />
@@ -116,21 +113,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-8 border-t border-white/5 text-center">
           <p className="text-sm text-gray-500">
-            © 2026 无锡蓝鲸动力科技有限公司 版权所有
+            版权所有 © 2026 无锡蓝鲸动力科技有限公司
           </p>
-          <div className="flex items-center gap-6">
-            <Link to="/privacy" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">
-              隐私政策
-            </Link>
-            <Link to="/terms" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">
-              使用条款
-            </Link>
-            <Link to="/sitemap" className="text-sm text-gray-500 hover:text-gray-400 transition-colors">
-              网站地图
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

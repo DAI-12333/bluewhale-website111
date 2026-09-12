@@ -1,14 +1,9 @@
 import { motion } from 'framer-motion';
 import { Zap, Shield, Waves, Lock, CheckCircle } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import SectionHeader from '../components/SectionHeader';
+import { fadeIn, fadeInOnMount } from '../components/motionPresets';
 import { awardImages } from '../config/images';
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-50px' },
-  transition: { duration: 0.6 }
-};
 
 const technologies = [
   {
@@ -80,7 +75,7 @@ const awards = [
   {
     title: '全国博士后创新创业大赛金奖',
     level: '国家级',
-    year: '2026',
+    year: '2023',
     desc: '第二届全国博士后创新创业大赛创新赛金奖',
     image: awardImages['1'],
   },
@@ -108,9 +103,7 @@ export default function Technology() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark-800/50 to-dark-900" />
         <div className="relative section-container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeInOnMount}
             className="max-w-4xl"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -127,17 +120,20 @@ export default function Technology() {
       {/* Technology Stack */}
       <section className="section-padding bg-dark-800/30">
         <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">技术体系</h2>
-            <p className="text-gray-400">三大核心技术，构建完整解决方案</p>
+          <motion.div {...fadeIn} className="mb-16">
+            <SectionHeader
+              eyebrow="Technology"
+              title="技术体系"
+              description="三大核心技术，构建完整解决方案"
+            />
           </motion.div>
 
           <div className="space-y-8">
             {technologies.map((tech, index) => (
               <motion.div
                 key={index}
-                {...fadeInUp}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                {...fadeIn}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="glass-card overflow-hidden"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-3">
@@ -185,17 +181,20 @@ export default function Technology() {
       {/* Patents */}
       <section className="section-padding">
         <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">核心专利</h2>
-            <p className="text-gray-400">6件核心专利，构筑技术护城河</p>
+          <motion.div {...fadeIn} className="mb-16">
+            <SectionHeader
+              eyebrow="Patents"
+              title="核心专利"
+              description="6件核心专利，构筑技术护城河"
+            />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {patents.map((patent, index) => (
               <motion.div
                 key={index}
-                {...fadeInUp}
-                transition={{ duration: 0.6, delay: index * 0.08 }}
+                {...fadeIn}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
                 className="glass-card p-6 hover-lift"
               >
                 <div className="flex items-start justify-between mb-4">
@@ -215,17 +214,20 @@ export default function Technology() {
       {/* Awards */}
       <section className="section-padding bg-dark-800/30">
         <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">荣誉奖项</h2>
-            <p className="text-gray-400">3项全国和省级奖励，彰显技术实力</p>
+          <motion.div {...fadeIn} className="mb-16">
+            <SectionHeader
+              eyebrow="Honors"
+              title="荣誉奖项"
+              description="3项全国和省级奖励，彰显技术实力"
+            />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {awards.map((award, index) => (
               <motion.div
                 key={index}
-                {...fadeInUp}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                {...fadeIn}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="glass-card p-6 text-center hover-lift"
               >
                 <div className="aspect-video relative overflow-hidden rounded-lg mb-4 bg-dark-700">
@@ -243,52 +245,6 @@ export default function Technology() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Tech Comparison */}
-      <section className="section-padding">
-        <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">技术优势</h2>
-            <p className="text-gray-400">与传统供电方式对比，突显竞争优势</p>
-          </motion.div>
-
-          <motion.div
-            {...fadeInUp}
-            className="glass-card overflow-hidden"
-          >
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-white/10">
-                    <th className="text-left p-6 text-gray-400 font-medium">对比维度</th>
-                    <th className="text-center p-6 text-ocean-400 font-semibold">蓝鲸无线供电</th>
-                    <th className="text-center p-6 text-gray-400 font-medium">传统有线充电</th>
-                    <th className="text-center p-6 text-gray-400 font-medium">电池更换</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    { dim: '自动化程度', ours: '全自动', traditional: '需人工插拔', battery: '需人工更换' },
-                    { dim: '充电效率', ours: '≥90%', traditional: '≥95%', battery: '-' },
-                    { dim: '维护成本', ours: '低', traditional: '中', battery: '高' },
-                    { dim: '设备寿命', ours: '长（无机械磨损）', traditional: '中', battery: '短' },
-                    { dim: '恶劣环境', ours: '适应性强', traditional: '接口易损坏', battery: '操作困难' },
-                    { dim: '安全性', ours: '高（无裸露电极）', traditional: '中', battery: '中' },
-                    { dim: '部署灵活性', ours: '高', traditional: '低', battery: '中' },
-                  ].map((row, index) => (
-                    <tr key={index} className="border-b border-white/5 last:border-0">
-                      <td className="p-6 text-white font-medium">{row.dim}</td>
-                      <td className="p-6 text-center text-ocean-300">{row.ours}</td>
-                      <td className="p-6 text-center text-gray-400">{row.traditional}</td>
-                      <td className="p-6 text-center text-gray-400">{row.battery}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </motion.div>
         </div>
       </section>
     </PageTransition>

@@ -1,13 +1,9 @@
 import { motion } from 'framer-motion';
-import { Target, Eye, Award, Users, TrendingUp, Shield } from 'lucide-react';
+import { Award, Users, TrendingUp, Shield } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-50px' },
-  transition: { duration: 0.6 }
-};
+import SectionHeader from '../components/SectionHeader';
+import { fadeIn, fadeInOnMount } from '../components/motionPresets';
+import { applicationImages } from '../config/images';
 
 export default function About() {
   return (
@@ -17,9 +13,7 @@ export default function About() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark-800/50 to-dark-900" />
         <div className="relative section-container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            {...fadeInOnMount}
             className="max-w-4xl"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -37,8 +31,8 @@ export default function About() {
       <section className="section-padding bg-dark-800/30">
         <div className="section-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div {...fadeInUp}>
-              <h2 className="text-3xl font-bold text-white mb-6">企业简介</h2>
+            <motion.div {...fadeIn}>
+              <SectionHeader align="left" eyebrow="Company Profile" title="企业简介" />
               <div className="space-y-4 text-gray-400 leading-relaxed">
                 <p>
                   无锡蓝鲸动力科技有限公司总部位于江苏省无锡市新吴区，是国内领先的移动装备无线供电系统解决方案提供商。
@@ -54,8 +48,8 @@ export default function About() {
               </div>
             </motion.div>
             <motion.div
-              {...fadeInUp}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              {...fadeIn}
+              transition={{ duration: 0.4, delay: 0.2 }}
               className="glass-card p-8"
             >
               <div className="grid grid-cols-2 gap-6">
@@ -77,48 +71,11 @@ export default function About() {
         </div>
       </section>
 
-      {/* Vision & Mission */}
-      <section className="section-padding">
-        <div className="section-container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              {...fadeInUp}
-              className="glass-card p-8 md:p-10"
-            >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-500/20 to-ocean-500/20 flex items-center justify-center mb-6">
-                <Eye className="w-7 h-7 text-ocean-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-4">企业愿景</h3>
-              <p className="text-gray-400 leading-relaxed">
-                成为全球领先的移动装备无线供电系统提供商，以技术创新推动能源补给方式的变革，
-                为构建绿色、智能、高效的能源生态贡献力量，让无线供电技术惠及各行各业。
-              </p>
-            </motion.div>
-
-            <motion.div
-              {...fadeInUp}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="glass-card p-8 md:p-10"
-            >
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-500/20 to-ocean-500/20 flex items-center justify-center mb-6">
-                <Target className="w-7 h-7 text-ocean-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-4">企业使命</h3>
-              <p className="text-gray-400 leading-relaxed">
-                专注于移动装备无线供电技术的研发与创新，为客户提供安全、可靠、高效的能源补给解决方案，
-                解决移动装备续航短、供电难、维护成本高的行业痛点，助力客户实现智能化、自动化升级。
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* Development History */}
       <section className="section-padding bg-dark-800/30">
         <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">发展历程</h2>
-            <p className="text-gray-400">蓝鲸动力的成长足迹</p>
+          <motion.div {...fadeIn} className="mb-16">
+            <SectionHeader eyebrow="Milestones" title="发展历程" description="蓝鲸动力的成长足迹" />
           </motion.div>
 
           <div className="max-w-4xl mx-auto">
@@ -146,8 +103,8 @@ export default function About() {
             ].map((item, index) => (
               <motion.div
                 key={index}
-                {...fadeInUp}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                {...fadeIn}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
                 className="flex gap-6 md:gap-8 mb-8 last:mb-0"
               >
                 <div className="flex flex-col items-center">
@@ -168,11 +125,12 @@ export default function About() {
       {/* Core Business */}
       <section className="section-padding">
         <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">核心业务</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              覆盖"发电-输电-供电"全场景，为移动装备提供一体化能源解决方案
-            </p>
+          <motion.div {...fadeIn} className="mb-16">
+            <SectionHeader
+              eyebrow="Core Business"
+              title="核心业务"
+              description={'覆盖"电能变换-无线传输-智能供电"全场景，为移动装备提供一体化能源解决方案'}
+            />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -180,112 +138,46 @@ export default function About() {
               {
                 title: '水下机器人供电',
                 desc: '为ROV、AUV等水下机器人提供安全可靠的水下无线充电解决方案，支持深海作业',
-                icon: '🌊',
+                image: applicationImages['ocean-2'],
               },
               {
                 title: '无人机供电',
                 desc: '为巡检无人机、物流无人机等提供高效便捷的无线充电服务，延长续航时间',
-                icon: '🚁',
+                image: applicationImages['transport-2'],
               },
               {
                 title: '智能装备供电',
                 desc: '为AGV、巡检机器人、服务机器人等智能装备提供灵活可靠的能源补给',
-                icon: '🤖',
+                image: applicationImages['industry-2'],
               },
             ].map((item, index) => (
               <motion.div
                 key={index}
-                {...fadeInUp}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="glass-card p-8 text-center hover-lift"
+                {...fadeIn}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="glass-card overflow-hidden hover-lift group"
               >
-                <div className="text-5xl mb-6">{item.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{item.desc}</p>
+                <div className="aspect-video relative overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-800/80 to-transparent" />
+                  <h3 className="absolute bottom-4 left-4 text-xl font-bold text-white">
+                    {item.title}
+                  </h3>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-400 leading-relaxed">{item.desc}</p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Strategic Layout */}
-      <section className="section-padding bg-dark-800/30">
-        <div className="section-container">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">战略布局</h2>
-            <p className="text-gray-400">聚焦海洋工程与低空经济两大战略方向</p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <motion.div
-              {...fadeInUp}
-              className="glass-card p-8"
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center">
-                  <span className="text-2xl">🌊</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white">海洋工程</h3>
-                  <p className="text-sm text-gray-500">Ocean Engineering</p>
-                </div>
-              </div>
-              <ul className="space-y-3 text-gray-400">
-                <li className="flex items-start gap-2">
-                  <span className="text-ocean-400 mt-1">•</span>
-                  海上风电巡检机器人无线充电系统
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-ocean-400 mt-1">•</span>
-                  海上光伏巡检机器人能源补给方案
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-ocean-400 mt-1">•</span>
-                  水下机器人深海充电基站
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-ocean-400 mt-1">•</span>
-                  海洋观测设备能源管理系统
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              {...fadeInUp}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="glass-card p-8"
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500/20 to-blue-500/20 flex items-center justify-center">
-                  <span className="text-2xl">🚁</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white">低空经济</h3>
-                  <p className="text-sm text-gray-500">Low-Altitude Economy</p>
-                </div>
-              </div>
-              <ul className="space-y-3 text-gray-400">
-                <li className="flex items-start gap-2">
-                  <span className="text-ocean-400 mt-1">•</span>
-                  电力系统巡检无人机充电网络
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-ocean-400 mt-1">•</span>
-                  物流配送无人机自动充电站
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-ocean-400 mt-1">•</span>
-                  应急抢险无人机快速补能系统
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-ocean-400 mt-1">•</span>
-                  城市空中交通能源基础设施
-                </li>
-              </ul>
-            </motion.div>
-          </div>
-        </div>
-      </section>
     </PageTransition>
   );
 }

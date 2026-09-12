@@ -11,8 +11,8 @@ const navItems = [
     label: '产品中心',
     path: '/products',
     children: [
-      { label: '陆上无线充电桩', path: '/products?category=land' },
       { label: '海下无线充电桩', path: '/products?category=sea' },
+      { label: '陆上无线充电桩', path: '/products?category=land' },
       { label: '移动式充电机器人', path: '/products?category=mobile' },
     ],
   },
@@ -20,9 +20,9 @@ const navItems = [
     label: '应用场景',
     path: '/applications',
     children: [
-      { label: '交通运输', path: '/applications?field=transport' },
       { label: '海洋工程', path: '/applications?field=ocean' },
       { label: '工业与民生', path: '/applications?field=industry' },
+      { label: '交通运输', path: '/applications?field=transport' },
     ],
   },
   { label: '新闻动态', path: '/news' },
@@ -55,10 +55,7 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+      <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
             ? 'bg-dark-900/95 backdrop-blur-lg shadow-lg shadow-black/20'
@@ -143,7 +140,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
